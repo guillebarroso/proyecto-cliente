@@ -1,0 +1,673 @@
+@import url('https://fonts.googleapis.com/css2?family=Roboto:wght@300;400&display=swap');
+:root{
+    --color-negro:rgb(7,7,7);
+    --color-azul:rgb(52,209,191);
+    --color-blanco:rgb(239,239,239);
+}
+
+body{
+    font-family: 'Roboto', sans-serif;
+    margin : 0 auto ;
+}
+
+.darkmode{
+    background-color: rgb(12, 43, 38);
+    color: white;
+}
+
+.caja{
+    height: 35vh;
+    width: 15vw;
+    display: flex;
+    flex-flow: column wrap;
+    justify-content: center;
+    align-items: center;
+    background: #333944;
+  }
+  .box{
+    /* width: 450px;
+    height: 300px; */
+    background: #CCC;
+    overflow: hidden;
+  }
+  
+  .box img{
+    width: 100%;
+    height: auto;
+  }
+
+  /*----------------------------------------------------------
+------------------------------------------------------------
+                    CHAT 
+------------------------------------------------------------
+-----------------------------------------------------------*/
+.chat-container{
+    background-color: rgb(164, 201, 245);
+    height: 100vh;
+    width: 100vh;
+}
+
+.receiver{
+    background-color: blue;
+    width: 60%;
+}
+
+.sender{
+    background-color: brown;
+    width: 60%;
+    align-self: flex-end;
+}
+
+.chat-messages{
+    display: flex;
+    flex-direction: column;
+}
+/*----------------------------------------------------------
+------------------------------------------------------------
+                    HEADER 
+------------------------------------------------------------
+-----------------------------------------------------------*/
+.menu{   
+    background-color: var(--color-negro);
+    width: 100%;       
+}
+
+.menu div .menuResponsive{
+    display: none;
+}
+
+.menu .contenedor{
+    width : 80% ;
+    margin : 0 auto ;
+    display: flex; 
+    justify-content: space-between; 
+    height: 10vh;    
+}
+
+.menu .contenedor .logo-header{
+    height: 10vh;
+    width: 10vh;
+}
+
+.menu .shareVolume{
+    color:var(--color-azul);
+    font-weight: bolder;
+}
+
+.menu div{
+    width:30%;
+    display:flex;
+    justify-content: space-between;
+}
+.botones{
+    text-decoration:none;  /*Esto sirve para quitar el subrayado que aparece cuando ponemos la etiqueta a */
+    background-color: var(--color-azul);
+    color:white;
+    font-weight: bolder;
+    width:10vw;
+    height:10vh;    
+    /* Para centrar el "Iniciar sesión" en el div bien?*/
+    display: flex;
+    align-items: center;
+    justify-content: center;  
+    font-size: 1vw;     
+}
+
+.botones p{
+    font-size: 1vw;
+    color:white;
+}
+
+.menu div .iconos-menu{
+    width: 50%;;
+    background-color: var(--color-negro);
+    display: flex; 
+    justify-content: space-between;
+    align-items: center;    
+}
+
+.iconos-menu i{
+    font-size: 3vh;
+    color: var(--color-blanco); 
+}
+
+.foto-perfil{
+    height: 10vh;
+    width: 10vh;
+    border-top-left-radius: 50% 50%;
+    border-top-right-radius: 50% 50%;
+    border-bottom-right-radius: 50% 50%;
+    border-bottom-left-radius: 50% 50%;
+}
+
+
+/*----------------------------------------------------------
+------------------------------------------------------------
+                    PÁGINA PRINCIPAL 
+------------------------------------------------------------
+-----------------------------------------------------------*/
+
+main{   
+    display: flex;
+    flex-direction: column;
+}
+
+/*----- Primer cuadro ----*/
+
+.comenzar{   
+    width: 100%;
+    height: 90vh;    
+}
+
+/* Cuadro */
+
+.cuadro1, .cuadro2, .cuadro3{
+    height: 100%;
+    width: 100%;
+}
+/* .cuadro1{
+    background: url("../img/audiencia_optimizado.jpg");
+    background-size: cover;
+    background-repeat: no-repeat;
+} */
+
+.cuadro1 header, .cuadro1 section{
+    width : 70% ;
+    margin : 0 auto;
+}
+
+.cuadro1 header h1{
+    margin-top: 0px;
+    padding-top: 5vh;
+    text-align: center;
+}
+
+/* .cuadro2{
+    background: url("../img/bateria_optimizado.jpg");
+    background-size: cover;
+    background-repeat: no-repeat;  
+    color: white;  
+} */
+
+.cuadro2 header, .cuadro2 section{
+    width: 40%;
+    /* float: right; No se por qué no se pone bien*/
+    padding-left: 5vh;
+}
+
+.cuadro2 header h1{
+    margin-top: 0px;
+    padding-top: 5vh;
+}
+
+.cuadro2 section{
+    margin-top: 0px;
+    height: 80%;
+}
+
+/* .cuadro3{
+    background: url("../img/concierto_optimizado.jpg");
+    background-size: cover;
+    background-repeat: no-repeat;
+    color: white;
+} */
+
+.cuadro3 header, .cuadro3 section{
+    width : 40% ;
+    padding-left: 5vh;
+}
+
+.cuadro3 header h1{
+    margin-top: 0px;
+    padding-top: 5vh;
+}
+
+/* Animación */
+
+.fade {
+    height: 100%;
+    -webkit-animation-name: fade;
+    -webkit-animation-duration: 1.5s;
+    animation-name: fade;
+    animation-duration: 1.5s;
+}
+
+@-webkit-keyframes fade {
+    from {opacity: .4} 
+    to {opacity: 1}
+}
+
+@keyframes fade {
+    from {opacity: .4} 
+    to {opacity: 1}
+} 
+
+/* On smaller screens, decrease text size */
+@media only screen and (max-width: 300px) {
+  .text{
+    font-size: 11px;
+  }   
+}
+
+/*----- Segundo cuadro ----*/
+
+.tutorial{
+    width: 80%;
+    height: 100vh;
+    margin: 0 auto;
+}
+.tutorial header{
+    margin-top: 5vh;
+    text-align:center;
+    font-size: 4vh;
+}
+
+.tutorial section figure{
+    margin: 0 auto;
+    width: 27%; 
+    height: 27%;
+}
+
+.tutorial section figure img{
+    height: 100%;
+    width: 100%;
+}
+
+.tutorial section a{
+    margin: 0 auto;
+    height: 11vh;
+    width: 22vw;
+    margin-top: 30px;
+    font-size:2vw;
+}
+
+
+
+/*----- Tercer cuadro ----*/
+
+.historia{
+    width: 80%;
+    height: 100vh;
+    margin: 0 auto;
+    border-color: var(--color-azul);
+    border-top-width: 1px;
+    border-top-style: solid;
+    margin-bottom: 50px;
+}
+
+.historia p{
+    width: 50%;
+}
+
+.historia header{
+    margin-top: 5vh;
+    text-align:center;
+    font-size: 4vh;
+}
+
+.historia section{
+    display: flex;
+    justify-content: space-between;
+    margin-bottom: 20px;    
+}
+
+.historia section div{
+    width: 50%;
+    overflow: hidden;
+    height: 90vh;;
+}
+
+.historia section p{
+    width: 100%;
+    font-size:3vh;
+}
+
+.historia section figure{
+    height: 60%;
+    width: 50%;
+}
+.historia section img{
+    height: 100%;
+    width: 100%;
+}
+
+/*----------------------------------------------------------
+------------------------------------------------------------
+                    APLICACIÓN 
+------------------------------------------------------------
+-----------------------------------------------------------*/
+
+.aplicacion > header{
+    font-size: 4vh;
+    margin-top: 5vh;
+    margin-bottom: 5vh;
+    text-align: center;
+}
+
+.aplicacion section{
+    width: 80%;
+    margin : 0 auto ;
+}
+
+.aplicacion .contenedorCuadros{     
+    display: flex;
+    flex-wrap: wrap;
+    align-content: space-between;
+    justify-content: space-between;
+    margin-bottom: 20px;
+}
+
+/* meter en otro section o div los cuadros para separarlo del final */
+
+.aplicacion .contenedorCuadros div{
+    height: 50vh;
+    width: 50vh;
+    background-color: var(--color-azul);
+    position: relative;
+    margin-bottom: 55px;
+}
+
+.aplicacion .contenedorCuadros div img{
+    height: 100%;
+    width: 100%;
+    display:block;
+    /* Esto lo hago para que en caso de que la pantalla sea grande siga habiendo separación */
+    /* Porque no me sale el margin top */
+        
+}
+
+.aplicacion section .botones{
+    margin : 0 auto ;
+    margin-bottom: 5vh;
+
+}
+
+/* Ventana oculta */
+
+.aplicacion .contenedorCuadros .descripcion {
+    display:none;
+    color: var(--color-blanco);
+    background-color: rgba(0, 0, 0, 0.85);
+    position: absolute;
+    top: 0;
+    font-size: 0.7rem;
+    word-wrap: break-word;
+}
+
+.descripcion header, i{
+    color: var(--color-azul); 
+}
+
+.descripcion header{
+    font-size: 1.5rem; 
+    margin-left: 10px;
+    margin-top: -20px;
+}
+.descripcion i{
+    font-size: 1.8rem; 
+}
+
+.descripcion h1, h1+p , .estrellas{
+    text-align: center;
+    color:var(--color-blanco);
+    font-weight: bolder;
+
+}
+
+.visible:hover .descripcion { 
+    display:block; 
+}
+
+/*----------------------------------------------------------
+------------------------------------------------------------
+                    LOGIN 
+------------------------------------------------------------
+-----------------------------------------------------------*/
+
+/* GENERAL */
+.login{
+    display: flex;
+    justify-content: space-between;      
+}
+
+.login section form{
+    display: flex;
+    flex-direction: column;
+    /* align-content: space-around; NO FUNCIONA*/
+}
+
+.inputLogin{
+    height: 9vh;
+    margin-bottom: 3vh;
+    border: 0px solid;
+}
+
+.login .botones{
+    margin-left: auto;
+    margin-right: auto;
+    border: 0px solid;
+    height: 9vh;
+    width: 32vw;
+    margin-bottom: 5vh;
+    font-size:2vw;
+}
+
+.login header{
+    font-size: 2.5vw;
+    margin-top: 5vh;
+    margin-bottom: 5vh;
+    text-align: center;
+}
+
+
+
+/* INICIAR SESIÓN */
+
+.login_prueba{
+    display: flex;
+    flex-direction: column;
+    width: 50%;
+}
+
+.iniciaSesion{
+    height: 100vh;
+    background-color: var(--color-blanco);
+}
+
+.iniciaSesion section{
+    width: 80%;
+    margin : 0 auto ;
+}
+
+.iniciaSesion footer{
+    text-align: center;
+}
+
+.iniciaSesion .logoInicio{
+    height: 20%;
+    width: 20%;
+}
+
+/* REGISTRARSE */
+
+.registrate{
+    height: 100vh;
+    background-color: var(--color-negro);
+    color: var(--color-azul);
+}
+
+.registrate section{
+    width: 80%;
+    margin : 0 auto ;
+}
+
+.registrate footer{
+    display: flex;
+    justify-content: space-evenly;
+}
+
+.registrate .logoRegistro{
+    height: 10%;
+    width: 10%;
+}
+
+.registrate p{
+    margin-top: auto;
+    margin-bottom: auto;
+    font-size: 1.5vw;
+    font-weight: bolder;
+        
+}
+/*----------------------------------------------------------
+------------------------------------------------------------
+                    FOOTER 
+------------------------------------------------------------
+-----------------------------------------------------------*/
+.menuFinal{
+    display: flex; 
+    background-color: var(--color-negro);
+    justify-content: space-between;
+    width: 100%;
+}
+.menuFinal .contenedor{
+    margin : 0 auto ;
+    display: flex; 
+    justify-content: space-between; 
+    height: 10vh; 
+    width: 80%;   
+}
+
+.iconos-footer{
+    display: flex;
+    justify-content: space-evenly; 
+    align-items: center;
+    width: 20%;
+}
+
+.iconos-footer i{
+    font-size:5vh;
+    color: var(--color-azul); 
+}
+
+.links-footer{
+    background-color: var(--color-negro);
+    width: 80%;
+    display:flex;
+    align-items: center;
+    justify-content: space-evenly;
+    
+}
+.links-footer a{
+    text-decoration:none;
+    color:white;
+    font-weight: bolder;
+}
+
+.responsive{
+    display: none;
+    height: 15vh;
+    background-color: var(--color-negro);
+}
+
+.responsive .iconos-footer{
+    width: 80%;
+    margin-top: 10px;
+}
+.responsive .links-footer{
+    width: 80%;
+    margin-top: 10px;
+}
+
+
+/*----------------------------------------------------------
+------------------------------------------------------------
+                    RESPONSIVE 
+------------------------------------------------------------
+-----------------------------------------------------------*/
+
+@media screen and (max-width: 800px) {
+	.login {
+        display: flex;
+        flex-wrap: wrap;
+        justify-content: space-between;
+    }
+    .login header{
+        font-size: 3vw;
+        margin-top: 5vh;
+        margin-bottom: 5vh;
+        text-align: center;
+    }
+    .iniciaSesion{
+        width:100%;
+    }
+    .registrate{
+        width:100%;
+    }
+    /* .registrate footer{
+        display: flex;
+        flex-wrap: wrap-reverse;
+    } */
+    .registrate p{
+        font-size: 3vw;            
+    }  
+
+    
+}
+
+/* Menu arriba */
+
+@media screen and (max-width: 500px) {
+    .menu div .menuResponsive{
+        display: block;
+    }  
+    .menu div .menuResponsive i{
+        display: block;
+        font-size: 10vh;
+    } 
+	.menu .shareVolume{
+        display: none;
+    }
+    .contenedor div{
+        display: none;
+    }
+    /* .menu div .iconos-menu{
+        display: block;
+    } */
+}
+
+/* Menu Final*/
+
+@media screen and (max-width: 500px) {  
+    
+    .menuFinal{
+        display: none;
+    }	
+    .responsive{
+        display:block;
+    }
+}
+
+@media screen and (max-width: 500px) {   
+    .historia section{
+        display: flex;
+        flex-wrap: wrap-reverse;
+        justify-content: space-between;
+    }   
+    .historia section div{
+        width: 100%;
+        height: 50vh;
+        overflow: hidden;
+    }
+    .historia section figure{
+        margin:0 auto;
+        height: 60%;
+        width: 50%;
+    }
+}
+
+@media screen and (max-width: 770px){   
+    .aplicacion .contenedorCuadros div{
+        margin:0 auto;
+        margin-bottom: 20px;
+    }
+}

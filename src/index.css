@@ -15,27 +15,6 @@ body{
     color: white;
 }
 
-.caja{
-    height: 35vh;
-    width: 15vw;
-    display: flex;
-    flex-flow: column wrap;
-    justify-content: center;
-    align-items: center;
-    background: #333944;
-  }
-  .box{
-    /* width: 450px;
-    height: 300px; */
-    background: #CCC;
-    overflow: hidden;
-  }
-  
-  .box img{
-    width: 100%;
-    height: auto;
-  }
-
   /*----------------------------------------------------------
 ------------------------------------------------------------
                     CHAT 
@@ -62,6 +41,93 @@ body{
     display: flex;
     flex-direction: column;
 }
+
+ /*----------------------------------------------------------
+------------------------------------------------------------
+                    Perfil instrumento 
+------------------------------------------------------------
+-----------------------------------------------------------*/
+.instrument_profile{
+    display: flex;
+    flex-direction: column;
+    width: 80%;
+}
+
+/* ---contenedor 1 ---*/
+.container1_instrument_profile{
+    display: flex;
+}
+/* imagenes instrumento */
+
+.images_instrument_profile{
+    width: 24%;
+    /* background-color: blue; */
+    display: flex;
+    flex-direction: column;
+}
+
+.caja-mayor{
+    width: 100%;
+    display: flex;
+    flex-flow: column wrap;
+    justify-content: center;
+    align-items: center;
+    background: #333944;
+}
+.caja-menor{
+    display: flex;
+    flex-wrap: wrap;
+}
+.caja{
+    height: 50%;
+    width: 33.33%;
+    display: flex;
+    flex-flow: column wrap;
+    justify-content: center;
+    align-items: center;
+    background: #333944;
+}
+.box{
+    background: #CCC;
+    overflow: hidden;
+}
+
+.box img{
+    width: 100%;
+    height: auto;
+}
+
+/* info instrumento */
+
+.info_instrument_profile{
+    width: 76%;
+    /* background-color: blueviolet; */
+}
+
+.datos_instrument_profile{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+.title{
+    text-align: center;
+}
+
+.data_instrument_profile , .price_instrument_profile, .stars_instrument_profile, .description_instrument_profile, .owner_instrument_profile{
+    display: flex;
+    align-items: center;
+    width: 80%;
+}
+
+/*--- contenedor ---2 */
+
+.container2_instrument_profile{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+
 /*----------------------------------------------------------
 ------------------------------------------------------------
                     HEADER 
@@ -150,6 +216,7 @@ body{
 main{   
     display: flex;
     flex-direction: column;
+    align-items: center;
 }
 
 /*----- Primer cuadro ----*/
@@ -359,7 +426,8 @@ main{
 
 /* meter en otro section o div los cuadros para separarlo del final */
 
-.aplicacion .contenedorCuadros div{
+
+.aplicacion .contenedorCuadros .visible{
     height: 50vh;
     width: 50vh;
     background-color: var(--color-azul);

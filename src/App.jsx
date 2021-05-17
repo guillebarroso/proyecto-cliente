@@ -16,6 +16,10 @@ import Chat from './pages/Chat';
 function App() {
   const [id, setId] = useState('');
   const [name, setName] = useState('');
+
+
+  const [other_user, setOther_user] = useState()
+  
   useEffect(() => {
     (
         async () => {
@@ -38,12 +42,14 @@ function App() {
 
                 <main className="form-signin">
                     <Route path="/login" component={Login}/>
-                    <Route path="/instruments" component={Instruments}/>
-                    <Route path="/instrumentprofile" component={InstrumentProfile}/>
+                    <Route path="/instruments" component={() => <Instruments setOther_user={setOther_user}/>}/>
                     <Route path="/reservar" component={() => <Book id={id} name={name}/>}/>
                     <Route path="/dashboard" component={() => <Dashboard name={name}/>}/>
                     <Route path="/upload" component={() => <UploadInstruments id={id}/>}/>
-                    <Route path="/chat" component={() => <Chat id={id}/>}/>
+                    <Route path="/instrument/profile" component={() => <InstrumentProfile id={id} other_user={other_user}/>}/>
+                    <Route path="/instrument/:instrumentid" component={() => <InstrumentProfile id={id}/>}/>
+                    
+                    <Route path="/chat" component={() => <Chat id={id} other_user={other_user}/>}/>
                     
                 </main>
             </BrowserRouter>

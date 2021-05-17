@@ -3,12 +3,12 @@ import { useEffect } from 'react';
 import axios from 'axios'
 import Echo from 'laravel-echo';
 
-const Chat = () => {
+const Chat = (props) => {
     const [message, setMessage] = useState('');
     const [messages, setMessages] = useState([]);
 
     window.Pusher = require('pusher-js');
-
+    debugger
     window.Echo = new Echo({
         broadcaster: 'pusher',
         key: 'd54277d39bdd4af0472f',
@@ -63,7 +63,8 @@ const Chat = () => {
     
 
     return (   
-        <div>     
+        <div>  
+            {console.log('Funciona:' + props.other_user)}   
             <div className="chat-container">
                 {console.log(messages)}
                 <div>
@@ -71,8 +72,8 @@ const Chat = () => {
                 </div>
                 <div>
                     <div className="chat-messages">
-                    {messages.map(item =>
-                        <div class={item.sender_user_id == 1? 'sender':'receiver'}>
+                    {messages.map((item, i)=>
+                        <div key={i} className={item.sender_user_id == 1? 'sender':'receiver'}>
                             {item.message}                            
                         </div>                
                     )   

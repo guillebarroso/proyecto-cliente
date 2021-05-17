@@ -64,18 +64,18 @@ const Book = (props) => {
                         <select onChange={e => setInstrumentId(e.target.value)}>
                                 <option></option>
                             {instruments.map(item =>
-                                <option class="visible" value={item.id}>{item.name}</option>                                    
+                                <option className="visible" value={item.id}>{item.name}</option>                                    
                     
                             )}
                         </select>
                         <button type="submit">Confirmar</button>
                     
 
-                        <footer>
-                            <img class="logoRegistro" src="assets/img/logoSharevolume-04.png" alt="Logo de Share Volume"/>
+                        {/* <footer>
+                            <img className="logoRegistro" src="assets/img/logoSharevolume-04.png" alt="Logo de Share Volume"/>
                             <p>Nos alegra tenerte entre nosotros ;)</p>            
-                            <img class="logoRegistro" src="assets/img/logoSharevolume-04.png" alt="Logo de Share Volume"/>
-                        </footer>
+                            <img className="logoRegistro" src="assets/img/logoSharevolume-04.png" alt="Logo de Share Volume"/>
+                        </footer> */}
                     </div>
 
                 </form>

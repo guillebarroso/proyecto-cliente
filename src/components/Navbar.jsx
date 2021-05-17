@@ -15,7 +15,7 @@ const Navbar = (props) => {
     return (
         <header className="menu">
             <div className="contenedor">
-                <Link to="/"><img class="logo-header" src="assets/img/logoSharevolume-04.png" alt="logo Share Volume"/></Link>
+                <Link to="/"><img className="logo-header" src="assets/img/logoSharevolume-04.png" alt="logo Share Volume"/></Link>
                 <p className="shareVolume">SHARE VOLUME {props.name}</p>
                 <div className="menuResponsive"><i className="fas fa-bars"></i></div>
                 <div>

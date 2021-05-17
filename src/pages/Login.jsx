@@ -144,9 +144,9 @@ const Login = (props) => {
                         
 
                             <footer>
-                                <img class="logoRegistro" src="assets/img/logoSharevolume-04.png" alt="Logo de Share Volume"/>
+                                <img className="logoRegistro" src="assets/img/logoSharevolume-04.png" alt="Logo de Share Volume"/>
                                 <p>Nos alegra tenerte entre nosotros ;)</p>            
-                                <img class="logoRegistro" src="assets/img/logoSharevolume-04.png" alt="Logo de Share Volume"/>
+                                <img className="logoRegistro" src="assets/img/logoSharevolume-04.png" alt="Logo de Share Volume"/>
                             </footer>
                         </div>
 

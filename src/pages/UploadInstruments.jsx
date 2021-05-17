@@ -16,10 +16,13 @@ const UploadInstruments = (props) => {
         // console.log(type);
         // console.log(price);
         // console.log(description);
-        // console.log(image);
+        let form = document.getElementById("avatar");
+        console.log(form);
+        console.log(image);
         let data2 = new FormData();
-        data2.append('file', image);
         console.log(data2);
+        data2 = data2.append('image', form);
+        // console.log(data2);
         await axios({
             method: 'post',
             // headers: {

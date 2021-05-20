@@ -1,6 +1,8 @@
 import React, {SyntheticEvent, useState} from 'react';
 import { useEffect } from 'react';
 import axios from 'axios'
+import DayPicker, { DateUtils } from 'react-day-picker';
+import 'react-day-picker/lib/style.css';
 
 const Book = (props) => {
     const [instrument_Id, setInstrumentId] = useState('');
@@ -44,6 +46,12 @@ const Book = (props) => {
 
     }
 
+    function handleDayClick(day) {
+        debugger
+        console.log(day);
+      }
+
+
     return (
         <div className="">
             <header>
@@ -54,6 +62,19 @@ const Book = (props) => {
             <section>
                 <form onSubmit={reservar}>
                     <div className="login_prueba">
+                        <DayPicker
+                        className="Selectable"
+                        numberOfMonths={2}
+                        onDayClick={handleDayClick}
+                        // onDayMouseEnter={handleDayMouseEnter}
+                        initialMonth={new Date()}
+                        disabledDays={[
+                            // new Date(2017, 3, 12),
+                            {
+                            before: new Date(),
+                            },
+                        ]}
+                        />
                         <input className="inputLogin" type="datetime-local" required
                             onChange={e => setFechaInicio(e.target.value)}
                         />

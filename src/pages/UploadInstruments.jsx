@@ -6,7 +6,7 @@ const UploadInstruments = (props) => {
     const [type, setType] = useState('');
     const [price, setPrice] = useState('');
     const [description, setDescription] = useState('');
-    const [image, setImage] = useState('');
+    const [image, setImage] = useState([]);
 
 
     const uploadInstrument = async (e) => {
@@ -16,18 +16,17 @@ const UploadInstruments = (props) => {
         // console.log(type);
         // console.log(price);
         // console.log(description);
-        let form = document.getElementById("avatar");
-        console.log(form);
-        console.log(image);
+        // let form = document.getElementById("avatar");
+        console.log(image.selectedFile);
         let data2 = new FormData();
         console.log(data2);
-        data2 = data2.append('image', form);
-        // console.log(data2);
+        data2.append('file', image.selectedFile, 'chris2.jpg');
+        console.log(data2.get('file'));
         await axios({
             method: 'post',
-            // headers: {
-            //     "Content-Type": "multipart/form-data",
-            //   },
+            headers: {
+                "Content-Type": "multipart/form-data",
+              },
             url: 'http://localhost:80/api/add/instrument',
             withCredentials: true,
             data: {
@@ -70,7 +69,7 @@ const UploadInstruments = (props) => {
                             onChange={e => setDescription(e.target.value)}            
                         />
                         <label for="avatar">Sube la foto principal de tu instrumento:</label>
-                        <input type="file" id="avatar" name="avatar" accept="image/png, image/jpeg" onChange={e => setImage(e.target.value)}></input>
+                        <input type="file" id="avatar" name="avatar" accept="image/png, image/jpeg" onChange={e => setImage({selectedFile:e.target.files[0]})}></input>
 
                         <button type="submit">Subir instrumento</button>
                     

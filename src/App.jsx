@@ -10,6 +10,7 @@ import InstrumentProfile from './pages/InstrumentProfile';
 import UploadInstruments from './pages/UploadInstruments';
 import Book from './pages/Book';
 import Chat from './pages/Chat';
+import Images from './pages/Images';
 
 
 
@@ -48,6 +49,7 @@ function App() {
                     <Route path="/upload" component={() => <UploadInstruments id={id}/>}/>
                     <Route path="/instrument/profile" component={() => <InstrumentProfile id={id} other_user={other_user}/>}/>
                     <Route path="/instrument/:instrumentid" component={() => <InstrumentProfile id={id}/>}/>
+                    <Route path="/images/:instrumentid" component={() => <Images id={id}/>}/>
                     
                     <Route path="/chat" component={() => <Chat id={id} other_user={other_user}/>}/>
                     

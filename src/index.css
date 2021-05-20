@@ -739,3 +739,41 @@ main{
         margin-bottom: 20px;
     }
 }
+
+
+
+/* galeria */
+
+.gallery-card {
+    position: relative;
+    overflow: hidden;
+    margin-bottom: 1.875rem;
+    width: 30vw; 
+    height: 30vh;
+}
+
+.gallery-thumbnail {
+    max-width: 100%;
+    height: auto;
+    border-radius: 4px;
+}
+
+.gallery-container {
+    padding-top: .9375rem;
+    display: flex;
+    flex-wrap: wrap;
+}
+
+.prueba4{
+    width: 100%;
+    height: 100%;
+}
+
+#prueba5{
+    position: absolute;
+    top: 0;
+    right: 8px;
+    font-size: 1.5rem;
+    color: #111;
+    transition: all .25s ease-in-out;
+}

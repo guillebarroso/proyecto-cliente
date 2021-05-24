@@ -3,6 +3,7 @@ import axios from 'axios'
 import { useParams } from "react-router";
 import Modal from 'react-modal';
 
+
 const Images = () => {
 
     const customStyles = {
@@ -75,7 +76,7 @@ const Images = () => {
             )   
             }
 
-        <button onClick={openModal}>Open Modal</button>
+        {/* <button onClick={openModal}>Open Modal</button> */}
 
         <Modal
           isOpen={modalIsOpen}

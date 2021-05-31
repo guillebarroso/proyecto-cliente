@@ -1,4 +1,5 @@
 import React from 'react'
+import { Link } from 'react-router-dom';
 import { Slide } from 'react-slideshow-image'
 import 'react-slideshow-image/dist/styles.css'
 
@@ -21,6 +22,7 @@ const ImageSlide = () => {
                                 <p>
                                     ¡Encuentra lo que buscas! 
                                 </p>
+                                <Link to="/instruments">Buscar</Link> 
                             </section>
                         </div>
                     </div>

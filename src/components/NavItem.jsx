@@ -5,7 +5,7 @@ const NavItem = (props) => {
     return (
     <li className="nav-item">
         <a href="#" className="dropdown-button" onClick={() => setOpen(!open)}>
-        <i class="fas fa-chevron-circle-down"></i>
+        <i className="fas fa-chevron-circle-down"></i>
         </a>
 
         {open && props.children}

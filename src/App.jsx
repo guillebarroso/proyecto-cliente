@@ -2,7 +2,7 @@ import './App.css';
 import axios from 'axios'
 import React, {useState} from 'react';
 import Navbar from "./components/Navbar";
-import {BrowserRouter, Route} from "react-router-dom";
+import {BrowserRouter, Route, Router, Switch} from "react-router-dom";
 import Login from "./pages/Login";
 import Instruments from "./pages/Instruments";
 import Dashboard from './pages/Dashboard';
@@ -15,6 +15,7 @@ import Images from './pages/Images';
 import Profile from './pages/Profile';
 import NavItem from './components/NavItem';
 import DropdownMenu from './components/DropdownMenu';
+import Footer from './components/Footer';
 
 
 function App() {
@@ -45,23 +46,24 @@ function App() {
         <header>
           <Navbar name={name} setName={setName}>
             <NavItem>
-              <DropdownMenu></DropdownMenu>
+              <DropdownMenu name={name} setName={setName}></DropdownMenu>
             </NavItem>
           </Navbar>
         </header>
-        <main>    
-          <Route path="/" component={() => <Dashboard name={name}></Dashboard>}/> 
-          <Route path="/login" component={Login}/>
-          <Route path="/instruments" component={() => <Instruments setOther_user={setOther_user}/>}/>
-          <Route path="/reservar" component={() => <Book id={id} name={name}/>}/>          
-          <Route path="/chat" component={() => <Chat id={id} other_user={other_user}/>}/>
-          <Route path="/upload" component={() => <UploadInstruments id={id}/>}/>
-          <Route path="/instrument/profile" component={() => <InstrumentProfile id={id} other_user={other_user}/>}/>
-          <Route path="/instrument/:instrumentid" component={() => <InstrumentProfile id={id}/>}/>
-          <Route path="/images/:instrumentid" component={() => <Images id={id}/>}/>
-          <Route path="/user/:userid" component={() => <Profile id={id}/>}/>
-                 
-        </main>
+        <Switch>   
+        <Route path="/login" component={() => <Login name={name} setName={setName} />}/>
+        <Route path="/instruments" component={() => <Instruments setOther_user={setOther_user}/>}/>
+        <Route path="/reservar" component={() => <Book id={id} name={name}/>}/>          
+        <Route path="/chat" component={() => <Chat id={id} other_user={other_user}/>}/>
+        <Route path="/upload" component={() => <UploadInstruments id={id}/>}/>
+        <Route path="/instrument/profile" component={() => <InstrumentProfile id={id} other_user={other_user}/>}/>
+        <Route path="/instrument/:instrumentid" component={() => <InstrumentProfile id={id}/>}/>
+        <Route path="/images/:instrumentid" component={() => <Images id={id}/>}/>
+        <Route path="/user/:userid" component={() => <Profile id={id}/>}/>
+        <Route path="/" component={() => <Dashboard name={name}></Dashboard>}/> 
+
+        </Switch>
+        <Footer></Footer>
       </BrowserRouter>  
     </div>
   );

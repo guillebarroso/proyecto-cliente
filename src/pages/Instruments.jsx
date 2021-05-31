@@ -8,57 +8,45 @@ import Pagination from "../components/Pagination";
 
 
 const Instruments = (props) => {
-    const [instruments, setInstruments] = useState([])
+    const [instruments, setInstruments] = useState([]);   
+
+    useEffect(() => {        
+        const obtenerDatos = async () => {
+            await axios({
+                method: 'get',
+                url: 'http://localhost:80/api/instrument/info',
+                withCredentials: true,
+            }).then(response => {
+            setInstruments(response.data);
+            });
+        }
+        obtenerDatos();
+    }, []);
+
+    const [currentPage, setCurrentPage] = useState(1);
+    const [postsPerPage] = useState(3);
+    const indexOfLastPost = currentPage * postsPerPage;
+    const indexOfFirstPost = indexOfLastPost - postsPerPage;
+    const currentPosts = instruments.slice(indexOfFirstPost, indexOfLastPost);
 
     function conversion(x){
         debugger
         x = x*10
         x = (Math.round(x/5)*5)/10;
         return x
-    }
-    
+    }    
 
     const onButtonClick=(mode)=>{
         props.setOther_user(mode)
     }
 
-    useEffect(() => {
-        (
-            async () => {
-                await axios({
-                    method: 'get',
-                    url: 'http://localhost:80/api/instrument/info',
-                    withCredentials: true,
-                  }).then(response => {
-                    setInstruments(response.data);
-                  });
-
-
-                // const response = await fetch('http://localhost:80/api/instrument/info', {
-                //     headers: {'Content-Type': 'application/json'},
-                //     credentials: 'include',
-                // });
-    
-                // const content = await response.json();
-                // setInstruments(content)
-            }
-        )();
-    }, []);
-
-    const [currentPage, setCurrentPage] = useState(1);
-    const [postsPerPage] = useState(3);
-
-    const indexOfLastPost = currentPage * postsPerPage;
-    const indexOfFirstPost = indexOfLastPost - postsPerPage;
-    const currentPosts = instruments.slice(indexOfFirstPost, indexOfLastPost);
-
     const paginate = pageNumber => setCurrentPage(pageNumber);
 
     return (
-        <section className="aplicacion">
-            {console.log(instruments)}
+        <main>
+        <section className="instruments">
             <header>
-            <h2>Echa un vistazo</h2>
+                <h2>Echa un vistazo</h2>
             </header>
 
             <div className="contenedorCuadros">
@@ -98,7 +86,7 @@ const Instruments = (props) => {
                             <p>
                                 {item.description}
                             </p>
-                            <button onClick={()=>onButtonClick(item.user_id)}><Link to="/chat">Ir al chat</Link></button>
+                            <button onClick={()=>onButtonClick(item.user_id)}><Link to="/chat">Ver perfil</Link></button>
                         </section>
                     </div>
                 </div>
@@ -106,10 +94,7 @@ const Instruments = (props) => {
                 )   
                 }
             </div>
-
-
-
-            <a className="botones" href="#"><div>Cargar más</div></a>
+            
             <Pagination
             postsPerPage={postsPerPage}
             totalPosts={instruments.length}
@@ -117,6 +102,7 @@ const Instruments = (props) => {
             />
             
         </section>
+        </main>
     )
 }
 export default Instruments

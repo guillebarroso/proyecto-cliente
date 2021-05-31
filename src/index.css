@@ -2,6 +2,8 @@
 :root{
     --color-negro:#242526;
     --color-azul:rgb(52,209,191);
+    --color-azul-oscuro:rgb(52,209,191);
+    --color-azul-claro:rgb(187, 241, 235);
     --color-blanco:rgb(239,239,239);
 }
 
@@ -9,6 +11,15 @@ body{
     font-family: 'Roboto', sans-serif;
     margin : 0 auto ;
 }
+main{
+    min-height: 90vh;
+}
+
+/* main{
+    align-items: center;
+    display: flex;
+    flex-direction: column;
+} */
 
 .darkmode{
     background-color: rgb(12, 43, 38);
@@ -41,6 +52,7 @@ body{
     border-top-right-radius: 50% 50%;
     border-bottom-right-radius: 50% 50%;
     border-bottom-left-radius: 50% 50%;
+    background-color: grey;
 }
 
   /*----------------------------------------------------------
@@ -48,26 +60,63 @@ body{
                     CHAT 
 ------------------------------------------------------------
 -----------------------------------------------------------*/
+.chat{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+}
+.chat-container::-webkit-scrollbar {
+	width: 5px;
+}
+.chat-container::-webkit-scrollbar-track {
+	background: #f1f1f1;
+}
+.chat-container::-webkit-scrollbar-thumb {
+	background: var(--color-azul);
+}
+.chat-container::-webkit-scrollbar-thumb:hover {
+	background: #555;
+}
 .chat-container{
-    background-color: rgb(164, 201, 245);
-    height: 100vh;
-    width: 100vh;
+    /* background-image: url("/assets/img/logoSharevolume-04.png"); */
+    background-image: url("logoSharevolume-04.png");
+    background-size: 50%;
+    background-repeat: no-repeat;
+    background-position: center;
+    border: 1px solid;
+    border-color: var(--color-azul);
+    border-radius: 10px;
+    max-height: 80vh;
+    width: 60%;
+    overflow-y: scroll;
+    display: flex;
+    flex-direction: column-reverse;
+}
+
+.receiver ,.sender{
+    border: 1px solid;
+    border-color: var(--color-azul);
+    border-radius: 10px;
+    padding: 0.5rem;
+    margin: 0.2rem;
 }
 
 .receiver{
-    background-color: blue;
-    width: 60%;
+    background-color: rgb(230, 241, 245);
+    align-self: flex-start;
+    
 }
 
 .sender{
-    background-color: brown;
-    width: 60%;
     align-self: flex-end;
+    background-color: white;
 }
 
 .chat-messages{
     display: flex;
     flex-direction: column;
+
 }
 
  /*----------------------------------------------------------
@@ -75,60 +124,88 @@ body{
                     Perfil instrumento 
 ------------------------------------------------------------
 -----------------------------------------------------------*/
-.instrument_profile{
+.containters_instrument_profile{
     display: flex;
     flex-direction: column;
-    width: 80%;
+    align-items: center;
+}
+.instrument_profile{
+
 }
 
 /* ---contenedor 1 ---*/
 .container1_instrument_profile{
     display: flex;
+    width: 60%;
 }
 /* imagenes instrumento */
 
-.images_instrument_profile{
-    width: 24%;
-    /* background-color: blue; */
+.image_instrument_profile{
+    width: 40%;
     display: flex;
-    flex-direction: column;
+    align-items: center;
+    padding-right: 1rem;
 }
 
-.caja-mayor{
-    width: 100%;
-    display: flex;
-    flex-flow: column wrap;
-    justify-content: center;
-    align-items: center;
-    background: #333944;
+.image_instrument_profile img{
+    max-width: 100%;
 }
-.caja-menor{
+
+.info_instrument_images{
     display: flex;
     flex-wrap: wrap;
+    justify-content: space-evenly;
+    width: 60%;
+    padding: 1rem;
+    background-color: var(--color-negro);
+    border-radius: 10px;
 }
-.caja{
-    height: 50%;
-    width: 33.33%;
-    display: flex;
-    flex-flow: column wrap;
-    justify-content: center;
-    align-items: center;
-    background: #333944;
+.description_instrument_profile{
+    border: 1px solid;
+    border-color: var(--color-azul);
+    padding: 1rem;
 }
-.box{
+
+.box-menor{
+    background: #CCC;
+    overflow: hidden;
+    width: 64px;
+    height: 12vh;
+    margin: 0.3rem;
+}
+.box, .box-menor{
     background: #CCC;
     overflow: hidden;
 }
 
-.box img{
+.box img ,.box-menor img{
     width: 100%;
-    height: auto;
+    height: 100%;
+}
+
+.etiqueta{
+    border: 1px solid;
+    border-color: var(--color-azul);
+    border-radius: 14px;
+}
+
+.etiqueta i{
+    font-size: 1rem;
+}
+
+.etiqueta p{
+    margin: 0.5rem;
+}
+
+.enlacePerfil-chat{
+    height: 100%;
 }
 
 /* info instrumento */
 
 .info_instrument_profile{
-    width: 76%;
+    width: 60%;
+    padding-left: 1rem;
     /* background-color: blueviolet; */
 }
 
@@ -137,14 +214,25 @@ body{
     flex-direction: column;
     align-items: center;
 }
+.datos_instrument_profile div{
+    margin-bottom: 1rem;
+}
 .title{
     text-align: center;
 }
 
 .data_instrument_profile , .price_instrument_profile, .stars_instrument_profile, .description_instrument_profile, .owner_instrument_profile{
     display: flex;
+}
+
+.price_instrument_profile{
+    justify-content: center;
     align-items: center;
-    width: 80%;
+
+}
+.price_instrument_profile p{
+    padding: 0.5rem;
+    margin: 0;
 }
 
 /*--- contenedor ---2 */
@@ -277,64 +365,62 @@ text-align: center;
 
 /*----------------------------------------------------------
 ------------------------------------------------------------
-                    APLICACIÓN 
+                    INSTRUMENTS 
 ------------------------------------------------------------
 -----------------------------------------------------------*/
 
-.aplicacion > header{
-    font-size: 4vh;
-    margin-top: 5vh;
-    margin-bottom: 5vh;
+.instruments > header{
+    font-size: 1.6rem;
     text-align: center;
 }
 
-.aplicacion section{
+.instruments section{
     width: 80%;
     margin : 0 auto ;
 }
 
-.aplicacion .contenedorCuadros{     
+.instruments .contenedorCuadros{     
     display: flex;
     flex-wrap: wrap;
-    align-content: space-between;
-    justify-content: space-between;
-    margin-bottom: 20px;
+    /* align-content: space-between; */
+    /* justify-content: space-between; */
+    /* margin: 1rem; */
+    justify-content: center;
 }
 
-/* meter en otro section o div los cuadros para separarlo del final */
 
 
-.aplicacion .contenedorCuadros .visible{
+.instruments .contenedorCuadros .visible{
     height: 50vh;
     width: 50vh;
     background-color: var(--color-azul);
     position: relative;
-    margin-bottom: 55px;
+    /* margin-bottom: 55px; */
+    margin: 1rem;
 }
 
-.aplicacion .contenedorCuadros div img{
+.instruments .contenedorCuadros div img{
     height: 100%;
     width: 100%;
-    display:block;
-    /* Esto lo hago para que en caso de que la pantalla sea grande siga habiendo separación */
-    /* Porque no me sale el margin top */
-        
+    display:block;        
 }
 
-.aplicacion section .botones{
+.instruments section .botones{
     margin : 0 auto ;
     margin-bottom: 5vh;
-
 }
+
 
 /* Ventana oculta */
 
-.aplicacion .contenedorCuadros .descripcion {
+.instruments .contenedorCuadros .descripcion {
     display:none;
     color: var(--color-blanco);
     background-color: rgba(0, 0, 0, 0.85);
     position: absolute;
     top: 0;
+    width: 100%;
+    height: 100%;
     font-size: 0.7rem;
     word-wrap: break-word;
 }
@@ -369,105 +455,79 @@ text-align: center;
 ------------------------------------------------------------
 -----------------------------------------------------------*/
 
-/* GENERAL */
-.login{
-    display: flex;
-    justify-content: space-between;      
-}
-
-.login section form{
-    display: flex;
-    flex-direction: column;
-    /* align-content: space-around; NO FUNCIONA*/
-}
-
 .inputLogin{
     height: 9vh;
-    margin-bottom: 3vh;
-    border: 0px solid;
+    padding: 1rem;
+    margin-bottom: 1.5rem;
+    border: 2px solid;
+    border-color: var(--color-azul);
 }
 
-.login .botones{
-    margin-left: auto;
-    margin-right: auto;
-    border: 0px solid;
-    height: 9vh;
-    width: 32vw;
-    margin-bottom: 5vh;
-    font-size:2vw;
+.loginTitle{
+    font-size: 2.3rem;
+    text-align: center;    
 }
-
-.login header{
-    font-size: 2.5vw;
-    margin-top: 5vh;
-    margin-bottom: 5vh;
-    text-align: center;
-}
-
-
-
-/* INICIAR SESIÓN */
-
-.login_prueba{
+.logBox{
     display: flex;
+    align-items: center;
     flex-direction: column;
+}
+
+.registrate, .iniciaSesion, .logReg{
     width: 50%;
 }
-
-.iniciaSesion{
-    height: 100vh;
-    background-color: var(--color-blanco);
-}
-
-.iniciaSesion section{
-    width: 80%;
-    margin : 0 auto ;
-}
-
-.iniciaSesion footer{
+.registrate, .iniciaSesion{
     text-align: center;
+    border-radius: 15px;
+    border: 6px;
+    border-style: solid;
+}
+.logReg{
+    display: flex;
+    justify-content: center;
 }
 
-.iniciaSesion .logoInicio{
-    height: 20%;
-    width: 20%;
-}
-
-/* REGISTRARSE */
-
-.registrate{
-    height: 100vh;
+.log_button{
     background-color: var(--color-negro);
     color: var(--color-azul);
 }
 
-.registrate section{
-    width: 80%;
-    margin : 0 auto ;
+.reg_button{
+    background-color: var(--color-azul);
+    color: var(--color-negro);
 }
 
-.registrate footer{
+.log_button, .reg_button{
+    width: 15vw;
+    height: 8vh;
+    border: none;
+}
+
+
+/* INICIAR SESIÓN */
+
+.iniciaSesion{
+    border-color: var(--color-negro);
+}
+
+.loginContent, .registerContent{
+    padding: 1.5rem;
     display: flex;
-    justify-content: space-evenly;
+    flex-direction: column;
 }
 
-.registrate .logoRegistro{
-    height: 10%;
-    width: 10%;
+/* REGISTRARSE */
+.registrate{
+    border-color: var(--color-azul);
 }
 
-.registrate p{
-    margin-top: auto;
-    margin-bottom: auto;
-    font-size: 1.5vw;
-    font-weight: bolder;
-        
-}
 /*----------------------------------------------------------
 ------------------------------------------------------------
                     FOOTER 
 ------------------------------------------------------------
 -----------------------------------------------------------*/
+
+
 .menuFinal{
     display: flex; 
     background-color: var(--color-negro);
@@ -542,12 +602,7 @@ text-align: center;
         margin-bottom: 5vh;
         text-align: center;
     }
-    .iniciaSesion{
-        width:100%;
-    }
-    .registrate{
-        width:100%;
-    }
+
     /* .registrate footer{
         display: flex;
         flex-wrap: wrap-reverse;
@@ -665,15 +720,24 @@ text-align: center;
     font-weight: bolder;
 }
 .login-button{
-    background-color: var(--color-negro); 
-    text-align: center;
-    text-decoration: none;
-    height: 80%;
+    background-color: var(--color-negro);
+    /* text-align: center; */
+    padding: 12px 14px;
+    height: 75%;
     color: var(--color-azul);
-    border-radius: 16px;
+    border: 2px;
+    border-radius: 25px;
     border-color: var(--color-azul);
-
+    border-style: dashed;
+    cursor: pointer;
+    text-decoration: none;
 }
+
+.login-button i {
+    font-size: 1rem;
+    padding-right: 0.6rem;
+}
+
 ul {
     list-style: none;
     margin: 0;

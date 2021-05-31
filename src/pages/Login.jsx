@@ -1,5 +1,6 @@
 import React, {SyntheticEvent, useState} from 'react';
 import axios from 'axios'
+import {withRouter} from 'react-router-dom'
 
 
 const Login = (props) => {
@@ -11,6 +12,7 @@ const Login = (props) => {
     const [location, setLocation] = useState('');
     const [password, setPassword] = useState('');
     const [esregistro, setEsregistro] = useState(false)
+    const [prueba, setprueba] = useState([])
 
 
     const procesarDatos = e => {
@@ -67,94 +69,96 @@ const Login = (props) => {
                     "email": email,
                     "password":password
                 }
-            }).then((response) => console.log(response.data));
+            }).then((response) => props.setName(response.data[0].name));
+            
             setEmail("")
-            setPassword("")
-            // setError(null)
-            props.history.push('/dashboard')
+            setPassword("")            // setError(null)
+            props.history.push('/')
 
         }
-        catch{
-            //console.log(error)
+        catch(error){
+            console.log(error)
             alert("No se ha podido iniciar sesión");
             // if (error.code==="auth/user-not-found" || error.code==="auth/wrong-password") {
             //     setError("Email y/o password incorrecto")
             // }
-
-        }      
-
+        }
     }
 
-
     return (
-        <div className={esregistro? "registrate":"iniciaSesion"}>
-            <button onClick={()=>setEsregistro(!esregistro)}>{esregistro? "Iniciar sesión":"Registrarse"}</button>
-            <header>
-                <h2 className="prueba">
+        <main>
+            {console.log(props.name)}
+            <section>
+                <h2 className="loginTitle">
                     {esregistro? "Registro":"Iniciar sesión"}
                 </h2>
-            </header>
-            
-            {!esregistro && (
-                <section>
-                    <form onSubmit={login}>
-                        <div className="login_prueba">
-                            <input className="inputLogin" type="text" placeholder="Email" required
-                                onChange={e => setEmail(e.target.value)}            />
 
-                            <input className="inputLogin" type="password" placeholder="Password" required
-                                onChange={e => setPassword(e.target.value)}
-                            />
-                            <button type="submit">Iniciar sesión</button>
-                      
-                            <footer>
-                                <img className="logoInicio" src="assets/img/logoSharevolume-05.png" alt="Logo de Share Volume"></img>
-                            </footer>
-                        </div>
-                    </form>
+                <section className="logBox">
+                    <div className="logReg">
+                        <button className="log_button" onClick={()=>setEsregistro(false)}>Iniciar sesión</button>
+                        <button className="reg_button" onClick={()=>setEsregistro(true)}>Registrarse</button>
+                    </div>
+                    <div className={esregistro? "registrate":"iniciaSesion"}>       
+                        {!esregistro && (                        
+                            <form onSubmit={login}>
+                                <div className="loginContent">
+                                    <h3>¡Hola de nuevo!</h3>
+                                    <input className="inputLogin" type="text" placeholder="Email" required
+                                        onChange={e => setEmail(e.target.value)}/>
+
+                                    <input className="inputLogin" type="password" placeholder="Password" required
+                                        onChange={e => setPassword(e.target.value)}/>
+
+                                    <button type="submit">Iniciar sesión</button>
+                                </div>
+                            </form>                        
+                        )}
+                        {esregistro && (
+                            <form onSubmit={registrar}>
+                                <div className="registerContent">
+                                    <h3>Ya estabas tardando...</h3>
+                                    <input className="inputLogin" type="text" placeholder="Name" required
+                                        onChange={e => setName(e.target.value)}
+                                    />
+                                    <input className="inputLogin" type="text" placeholder="Surname" required
+                                        onChange={e => setSurname(e.target.value)}
+                                    />
+                                    <input className="inputLogin" type="number" placeholder="Age" required
+                                        onChange={e => setAge(e.target.value)}
+                                    />
+                                    <input className="inputLogin" type="text" placeholder="Email address" required
+                                        onChange={e => setEmail(e.target.value)}
+                                    />
+                                    <input className="inputLogin" type="text" placeholder="Nickname" required
+                                        onChange={e => setNickname(e.target.value)}            
+                                    />
+                                    <input className="inputLogin" type="text" placeholder="Location" required
+                                        onChange={e => setLocation(e.target.value)}            
+                                    />
+                                    <input className="inputLogin" type="password" placeholder="Password" required
+                                        onChange={e => setPassword(e.target.value)}
+                                    />
+                                    <button type="submit">Registrar</button>
+                                </div>
+                            </form>
+                        )}
+                    </div> 
                 </section>
-                
-            )}
-            {esregistro && (
-                <section>
-                    <form onSubmit={registrar}>
-                        <div className="login_prueba">
-                            <input className="inputLogin" type="text" placeholder="Name" required
-                                onChange={e => setName(e.target.value)}
-                            />
-                            <input className="inputLogin" type="text" placeholder="Surname" required
-                                onChange={e => setSurname(e.target.value)}
-                            />
-                            <input className="inputLogin" type="number" placeholder="Age" required
-                                onChange={e => setAge(e.target.value)}
-                            />
-                            <input className="inputLogin" type="text" placeholder="Email address" required
-                                onChange={e => setEmail(e.target.value)}
-                            />
-                            <input className="inputLogin" type="text" placeholder="Nickname" required
-                                onChange={e => setNickname(e.target.value)}            
-                            />
-                            <input className="inputLogin" type="text" placeholder="Location" required
-                                onChange={e => setLocation(e.target.value)}            
-                            />
-                            <input className="inputLogin" type="password" placeholder="Password" required
-                                onChange={e => setPassword(e.target.value)}
-                            />
-                            <button type="submit">Registrar</button>
-                        
-
-                            <footer>
-                                <img className="logoRegistro" src="assets/img/logoSharevolume-04.png" alt="Logo de Share Volume"/>
-                                <p>Nos alegra tenerte entre nosotros ;)</p>            
-                                <img className="logoRegistro" src="assets/img/logoSharevolume-04.png" alt="Logo de Share Volume"/>
-                            </footer>
-                        </div>
-
-                    </form>
+                <footer>
+                {!esregistro && (
+                    <img className="logoInicio" src="assets/img/logoSharevolume-05.png" alt="Logo de Share Volume"></img>  
+                )}
+                {esregistro && (
+                    <div>
+                        <img className="logoRegistro" src="assets/img/logoSharevolume-04.png" alt="Logo de Share Volume"/>
+                        <p>Nos alegra tenerte entre nosotros ;)</p>            
+                        <img className="logoRegistro" src="assets/img/logoSharevolume-04.png" alt="Logo de Share Volume"/>
+                    </div>
+                )}
+                </footer>
             </section>
-            )}
-        </div>
+        </main>
     );
 }
 
-export default Login
+export default withRouter(Login)

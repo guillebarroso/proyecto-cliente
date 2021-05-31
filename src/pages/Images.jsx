@@ -85,8 +85,8 @@ const Images = () => {
           contentLabel="Example Modal"
         >
 
-          <i class="fas fa-window-close" id="prueba5" onClick={closeModal}></i>
-          <img class="prueba4" src={image} alt="" />
+          <i className="fas fa-window-close" id="prueba5" onClick={closeModal}></i>
+          <img className="prueba4" src={image} alt="" />
 
         </Modal>
         </div>

@@ -1,44 +1,30 @@
 import React, {useState } from "react";
 import {Link, Redirect} from "react-router-dom";
+import {withRouter} from 'react-router-dom'
 
 const Navbar = (props) => {
 
     const [open, setOpen] = useState(false)
     const [buscar, setBuscar] = useState("")
 
-    const logout = async () => {
-        debugger
-        await fetch('http://localhost:80/api/logout', {
-            method: 'POST',
-            headers: {'Content-Type': 'application/json'},
-            credentials: 'include',
-        });
-        props.setName("")
-
-    }
-
     function handleChange() {
         debugger
         console.log(buscar);
-        <Redirect
-        to={{
-            pathname: "/prueba",
-            search: "?utm=your+face",
-        }}
-        />
+        props.history.push('/instruments')
       }
     return (
         <nav className="navbar">
             <ul className="navbar-nav">
-                <li className="nav-item"><Link to="/"><img className="logo-header" src="assets/img/logoSharevolume-04.png" alt="Logo Share Volume"/></Link></li>
+                <li className="nav-item"><Link to="/"><img className="logo-header" src="/assets/img/logoSharevolume-04.png" alt="Logo Share Volume"/></Link></li>
                 <li className="nav-item"><p className="shareVolume">Share Volume</p></li>
-                <li className="nav-item"><button className="login-button"><i class="fas fa-user"></i>Inicia sesión o regístrate</button></li>
-                <li className="nav-item"><i className="fas fa-adjust" onclick="darkmode()"></i></li>
+                <li className="nav-item"><Link to="/login" className="login-button"><i className="fas fa-user"></i>Inicia sesión o regístrate</Link></li>
+                <li className="nav-item"><i className="fas fa-adjust"></i></li>  
+                {/* Arriba va esto onClick="darkmode()" */}
                 <li className="nav-item">
-                    <div class={open?"search open":"search"}>
-                        {open && (<form onSubmit={handleChange}><input type="search" class="search-box" onChange={e => setBuscar(e.target.value)} /></form>)}
-                        <span class="search-button" onClick={() => setOpen(!open)}>
-                            <span class="search-icon"></span>
+                    <div className={open?"search open":"search"}>
+                        {open && (<form onSubmit={handleChange}><input type="search" className="search-box" onChange={e => setBuscar(e.target.value)} /></form>)}
+                        <span className="search-button" onClick={() => setOpen(!open)}>
+                            <span className="search-icon"></span>
                         </span>
                     </div>
                 </li>
@@ -79,4 +65,4 @@ const Navbar = (props) => {
     )
 }
 
-export default Navbar
+export default withRouter(Navbar)

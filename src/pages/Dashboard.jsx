@@ -4,23 +4,24 @@ import ImageSlide from '../components/ImageSlide'
 const Dashboard = (props) => {
     return (
         <main>
-            <section class="comenzar">
+            {console.log("Funciona?: " + props.name)}
+            <section className="comenzar">
                 <ImageSlide></ImageSlide>
             </section>
 
-            <section class="tutorial">
+            <section className="tutorial">
                 <header>
                     <h2>¿Te echamos un cable?</h2>
                 </header>
                 <section>
                     <figure>
-                        <img src="img/logoSharevolume-04.png" alt="Logo de Share Volume"/>
+                        <img src="assets/img/logoSharevolume-04.png" alt="Logo de Share Volume"/>
                     </figure>
-                    <a class="botones" href="#"><div>Empezar</div></a>
+                    <a className="botones" href="#"><div>Empezar</div></a>
                 </section>            
             </section>
 
-            <section class="historia">            
+            <section className="historia">            
                     <header>
                         <h2>Un poco de historia</h2>
                     </header>
@@ -44,7 +45,7 @@ const Dashboard = (props) => {
                             </p>
                         </div>                    
                         <figure>
-                            <img class="logos" src="img/logos.PNG" alt="Historia Share Volume"/>
+                            <img className="logos" src="assets/img/logos.PNG" alt="Historia Share Volume"/>
                         </figure>
                     </section>
             </section>

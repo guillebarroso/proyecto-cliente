@@ -5,12 +5,14 @@ import {withRouter} from 'react-router-dom'
 const Navbar = (props) => {
 
     const [open, setOpen] = useState(false)
+    const [user, setUser] = useState("")
     const [buscar, setBuscar] = useState("")
 
     function handleChange() {
         debugger
+        console.log(user);
         console.log(buscar);
-        props.history.push('/instruments')
+        props.history.push('/search/' + buscar + "/" + user)
       }
     return (
         <nav className="navbar">
@@ -22,7 +24,15 @@ const Navbar = (props) => {
                 {/* Arriba va esto onClick="darkmode()" */}
                 <li className="nav-item">
                     <div className={open?"search open":"search"}>
-                        {open && (<form onSubmit={handleChange}><input type="search" className="search-box" onChange={e => setBuscar(e.target.value)} /></form>)}
+                        {open && (                        
+                        <form onSubmit={handleChange}>
+                            <div className="busqueda">
+                                <i class="fas fa-music" onClick={() => setUser("instrumet")}></i>
+                                <i class="fas fa-users" onClick={() => setUser("user")}></i>
+                                <input type="search" className="search-box" onChange={e => setBuscar(e.target.value)} />
+                            </div>
+                        </form>
+                        )}
                         <span className="search-button" onClick={() => setOpen(!open)}>
                             <span className="search-icon"></span>
                         </span>

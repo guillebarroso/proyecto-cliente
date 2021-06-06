@@ -1,7 +1,10 @@
 import React, {SyntheticEvent, useState} from 'react';
 import axios from 'axios';
+import {withRouter} from 'react-router-dom'
+
 
 const UploadInstruments = (props) => {
+    const [id, setId] = useState(0)
     const [name, setName] = useState('');
     const [type, setType] = useState('');
     const [price, setPrice] = useState('');
@@ -12,42 +15,37 @@ const UploadInstruments = (props) => {
     const uploadInstrument = async (e) => {
         debugger
         e.preventDefault();
-        // console.log(name);
-        // console.log(type);
-        // console.log(price);
-        // console.log(description);
-        // let form = document.getElementById("avatar");
-        console.log(image.selectedFile);
-        let data2 = new FormData();
-        console.log(data2);
-        data2.append('file', image.selectedFile, 'chris2.jpg');
-        console.log(data2.get('file'));
+        const data3 = new FormData();
+        data3.append('user_id', 9);
+        data3.append('name', name);
+        data3.append('type', type);
+        data3.append('starting_price', price);
+        data3.append('description', description);
+        data3.append('image', image.selectedFile);
+        console.log(data3.getAll(name));    
         await axios({
             method: 'post',
             headers: {
                 "Content-Type": "multipart/form-data",
-              },
+                },
             url: 'http://localhost:80/api/add/instrument',
             withCredentials: true,
-            data: {
-                "user_id":props.id,
-                "name": name,
-                "type": type,
-                "starting_price": price,
-                "description": description,
-                "image": data2,
-            }
-          }).then((response) => console.log(response.data));
-          console.log("todo bien");
+            data: data3
+        }).then(response => {
+        console.log(response.data.id);
+        setId(response.data.id);
+        });
 
+        if (id!=0) {
+            props.history.push('/edit/'+ id)            
+        }
     }
 
 
     return (
-        <div>
-            <h2>prueba{props.id}</h2>
+        <main>
             <section>
-                <form onSubmit={uploadInstrument}>
+                <form encType="multipart/form-data" onSubmit={uploadInstrument}>
                     <div className="login_prueba">
                         <input className="inputLogin" type="text" placeholder="name" required
                             onChange={e => setName(e.target.value)}
@@ -71,15 +69,15 @@ const UploadInstruments = (props) => {
                         <label for="avatar">Sube la foto principal de tu instrumento:</label>
                         <input type="file" id="avatar" name="avatar" accept="image/png, image/jpeg" onChange={e => setImage({selectedFile:e.target.files[0]})}></input>
 
-                        <button type="submit">Subir instrumento</button>
+                        <button type="submit">Subir fotos</button>
                     
                     </div>
 
                 </form>
             </section>
             
-        </div>
+        </main>
     )
 }
 
-export default UploadInstruments
+export default withRouter(UploadInstruments)

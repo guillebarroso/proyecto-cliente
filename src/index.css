@@ -7,6 +7,8 @@
     --color-blanco:rgb(239,239,239);
 }
 
+
+
 body{
     font-family: 'Roboto', sans-serif;
     margin : 0 auto ;
@@ -78,6 +80,13 @@ main{
 .chat-container::-webkit-scrollbar-thumb:hover {
 	background: #555;
 }
+.chat-header{
+    min-height: 7vh;
+    background-color: var(--color-negro);
+    width: 60%;
+    padding-top: 1rem;
+}
+
 .chat-container{
     /* background-image: url("/assets/img/logoSharevolume-04.png"); */
     background-image: url("logoSharevolume-04.png");
@@ -86,14 +95,36 @@ main{
     background-position: center;
     border: 1px solid;
     border-color: var(--color-azul);
-    border-radius: 10px;
-    max-height: 80vh;
+    height: 70vh;
     width: 60%;
     overflow-y: scroll;
     display: flex;
     flex-direction: column-reverse;
 }
 
+.chat-text{
+    width: 60%;
+    min-height: 7vh;
+    height: 70%;
+    border: 1px solid;
+    border-color: var(--color-azul);
+    display: flex;
+    align-items: center;
+}
+
+.chat-text input{
+    width: 80%;
+    border-radius: 20px;
+    border: 1px solid;
+    border-color: var(--color-azul);
+    padding-left: 10px;
+    margin: 0.4rem;
+}
+
+.chat-text button{
+    width: 20%;
+    height: 100%;
+}
 .receiver ,.sender{
     border: 1px solid;
     border-color: var(--color-azul);
@@ -124,63 +155,21 @@ main{
                     Perfil instrumento 
 ------------------------------------------------------------
 -----------------------------------------------------------*/
-.containters_instrument_profile{
+/* General */
+.instrument_profile ,.comments{
     display: flex;
     flex-direction: column;
     align-items: center;
 }
-.instrument_profile{
 
+.datos_instrument_profile ,.comments ,.images_instrument_profile{
+    width: 80%;    
 }
 
-/* ---contenedor 1 ---*/
-.container1_instrument_profile{
+.data_instrument_profile{
+    
     display: flex;
-    width: 60%;
-}
-/* imagenes instrumento */
-
-.image_instrument_profile{
-    width: 40%;
-    display: flex;
-    align-items: center;
-    padding-right: 1rem;
-}
-
-.image_instrument_profile img{
-    max-width: 100%;
-}
-
-.info_instrument_images{
-    display: flex;
-    flex-wrap: wrap;
-    justify-content: space-evenly;
-    width: 60%;
-    padding: 1rem;
-    background-color: var(--color-negro);
-    border-radius: 10px;
-}
-.description_instrument_profile{
-    border: 1px solid;
-    border-color: var(--color-azul);
-    padding: 1rem;
-}
-
-.box-menor{
-    background: #CCC;
-    overflow: hidden;
-    width: 64px;
-    height: 12vh;
-    margin: 0.3rem;
-}
-.box, .box-menor{
-    background: #CCC;
-    overflow: hidden;
-}
-
-.box img ,.box-menor img{
-    width: 100%;
-    height: 100%;
+    justify-content: center;
 }
 
 .etiqueta{
@@ -204,44 +193,250 @@ main{
 /* info instrumento */
 
 .info_instrument_profile{
-    width: 60%;
-    padding-left: 1rem;
-    /* background-color: blueviolet; */
+    display: flex;
+    /* flex-direction: column; */
 }
 
-.datos_instrument_profile{
+.image_instrument_profile{
+    width: 50%;
     display: flex;
-    flex-direction: column;
     align-items: center;
+    justify-content: center;
 }
-.datos_instrument_profile div{
-    margin-bottom: 1rem;
+
+.image_instrument_profile img{
+    max-width: 100%;
+    max-height: 60vh;
 }
-.title{
-    text-align: center;
+
+.text_instrument_profile{
+    width: 50%;
+}
+
+.text_instrument_profile ,.image_instrument_profile{
+    padding: 1rem;
 }
 
 .data_instrument_profile , .price_instrument_profile, .stars_instrument_profile, .description_instrument_profile, .owner_instrument_profile{
     display: flex;
+    justify-content: center;
+    align-items: center;
 }
 
 .price_instrument_profile{
-    justify-content: center;
-    align-items: center;
-
+    font-size: 3rem;
 }
 .price_instrument_profile p{
-    padding: 0.5rem;
     margin: 0;
 }
 
-/*--- contenedor ---2 */
+.stars_instrument_profile{
+    font-size: 4rem;
+}
 
-.container2_instrument_profile{
+.description_instrument_profile{
+    border: 1px solid;
+    border-color: var(--color-azul);
+    border-radius: 10px;
+    padding: 1rem;
+}
+.description_instrument_profile p{
+    margin: 0;
+}
+
+/* imagenes instrumento */
+
+.images_instrument_profile{
+    display: flex;
+    justify-content: center;
+}
+
+.instrument_images{
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    align-items: center;
+    border: 1px solid;
+    border-color: var(--color-azul);
+    border-radius: 10px;
+    background-color: var(--color-negro);
+}
+
+.box-img{
+    height: 120px;
+    width: 120px;
+    padding: 0.5rem;
+
+}
+.box-img img, .box-link{
+    height: 100%;
+    width: 100%;
+}
+
+.box-link{
+    background-color: var(--color-azul);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+/* comentarios instrumento */
+
+
+.comments-box{
+    display: flex;
+    flex-direction: column;
+}
+
+.comment_other ,.comment_you{
+    width: 67%;
+    border: 1px solid;
+    margin-bottom: 1rem;
+}
+
+.comment_other{
+    align-self: flex-start;
+    border-color: var(--color-negro);
+    
+
+}
+
+
+.comment_you{
+    align-self: flex-end;   
+    border-color: var(--color-azul); 
+
+}
+
+ /*----------------------------------------------------------
+------------------------------------------------------------
+                    PROFILE 
+------------------------------------------------------------
+-----------------------------------------------------------*/
+.profile{
     display: flex;
     flex-direction: column;
     align-items: center;
 }
+
+.profile-sections ,.profile-edit{
+    width: 80%;
+}
+
+.profile-sections{
+    display: flex;
+}
+
+.profile-section{
+    width: 33.33%;
+    text-align: center;
+}
+
+.profile-section i{
+    font-size: 4rem;
+}
+
+.profile-edit{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.profile-img-edit{
+
+}
+
+.profile-img-shw{
+    display: flex;
+    height: 35vh;
+    justify-content: center;
+}
+
+.profile-img-shw img{
+    height: 100%;
+    
+}
+
+
+
+
+  /*----------------------------------------------------------
+------------------------------------------------------------
+                    EDITAR INSTRUMENTO 
+------------------------------------------------------------
+-----------------------------------------------------------*/
+.editar-instrumentos{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.edit-images-instrument , .editar-instrumentos .datos_instrument_profile{
+    display: flex;
+    width: 80%;
+}
+
+.image_instrument_edit{
+    width: 50%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    padding: 1rem;
+}
+.image_instrument_edit img{
+    max-width: 100%;
+    max-height: 60vh;
+}
+
+.add-images{
+    width: 50%;
+}
+
+.form-upload-images ,.edit-gallery{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+
+}
+
+.file-images{
+    width: 0.1px;
+	height: 0.1px;
+	opacity: 0;
+	overflow: hidden;
+	position: absolute;
+	z-index: -1;
+}
+
+.file-label{
+    font-size: 1.25em;
+    display: inline-block;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.file-label {
+	cursor: pointer; /* "hand" cursor */
+}
+
+/* .file-label:focus {
+	outline: 1px dotted #000;
+	outline: -webkit-focus-ring-color auto 5px;
+} */
+
+.file-label i{
+	font-size: 3rem; /* "hand" cursor */
+}
+
+
+
+
+
+
+
+
+
 
 
 /*----------------------------------------------------------
@@ -455,6 +650,7 @@ text-align: center;
 ------------------------------------------------------------
 -----------------------------------------------------------*/
 
+
 .inputLogin{
     height: 9vh;
     padding: 1rem;
@@ -474,7 +670,7 @@ text-align: center;
 }
 
 .registrate, .iniciaSesion, .logReg{
-    width: 50%;
+    width: 40%;
 }
 .registrate, .iniciaSesion{
     text-align: center;
@@ -521,12 +717,14 @@ text-align: center;
     border-color: var(--color-azul);
 }
 
+
+
+
 /*----------------------------------------------------------
 ------------------------------------------------------------
                     FOOTER 
 ------------------------------------------------------------
 -----------------------------------------------------------*/
-
 
 .menuFinal{
     display: flex; 
@@ -913,3 +1111,13 @@ i{
     top: 5px;
     height: 9px;
   }
+
+.busqueda{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.busqueda i ,.busqueda input{
+    margin: 1rem;
+}

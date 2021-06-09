@@ -4,8 +4,7 @@ import { Link } from "react-router-dom";
 import ReactStars from "react-rating-stars-component";
 import Pagination from "../components/Pagination";
 
-
-const Instruments = (props) => {
+const OwnInstruments = (props) => {
     const [instruments, setInstruments] = useState([]);
     const [currentPage, setCurrentPage] = useState(1);
     const [postsPerPage] = useState(3);
@@ -17,7 +16,7 @@ const Instruments = (props) => {
         const obtenerDatos = async () => {
             await axios({
                 method: 'get',
-                url: 'http://localhost:80/api/info/instruments',
+                url: 'http://localhost:80/api/myinstrument/info/' + props.id,
                 withCredentials: true,
             }).then(response => {
             setInstruments(response.data);
@@ -38,22 +37,19 @@ const Instruments = (props) => {
         <main>
             <section className="instruments">
                 <header>
-                    <h2>Echa un vistazo</h2>
+                    <h2>Tus instrumentos</h2>
                 </header>
 
                 <div className="contenedorCuadros">
                     {currentPosts.map(item =>
                     <div className="visible">
-                        <img src={'http://localhost:80/api/instrument/image/' + item.instrument_image} alt="Instrumento"></img>
+                        <img src={'http://localhost:80/api/instrument/image/' + item.image} alt="Instrumento"></img>
                         <div className="descripcion">
-                            <header>
-                                <h4>@{item.nickname}</h4>
-                            </header>
-                            <section className="card-back">
+                            <section>
                                 <h2>{item.name}</h2>
-                                <p>{item.location}</p>
-                                <p className="card-rate">{conversion(item.stars)}</p>
-                                <div className="card-rate-visual">
+                                <p>{conversion(item.stars)}</p>
+
+                                <div>
                                     <ReactStars
                                     count={5}
                                     value={conversion(item.stars)}
@@ -66,9 +62,10 @@ const Instruments = (props) => {
                                     color="rgb(34, 128, 117)"
                                     activeColor="rgb(52,209,191)"
                                     />
-                                </div>                                
-                                <p className="card-description">{item.description}</p>
-                                <Link className="card-link-chat" to={"/instrument/" + item.id}>Ver perfil</Link>
+                                </div>
+                                
+                                <p>{item.description}</p>
+                                <Link to={"/reservar/" + item.id}>Gestionar reserva</Link>
                             </section>
                         </div>
                     </div>
@@ -86,4 +83,5 @@ const Instruments = (props) => {
         </main>
     )
 }
-export default Instruments
+
+export default OwnInstruments

@@ -16,18 +16,17 @@ const UploadInstruments = (props) => {
         debugger
         e.preventDefault();
         const data3 = new FormData();
-        data3.append('user_id', 9);
+        data3.append('user_id', props.id);
         data3.append('name', name);
         data3.append('type', type);
         data3.append('starting_price', price);
         data3.append('description', description);
         data3.append('image', image.selectedFile);
-        console.log(data3.getAll(name));    
         await axios({
             method: 'post',
             headers: {
                 "Content-Type": "multipart/form-data",
-                },
+            },
             url: 'http://localhost:80/api/add/instrument',
             withCredentials: true,
             data: data3
@@ -44,38 +43,53 @@ const UploadInstruments = (props) => {
 
     return (
         <main>
-            <section>
+            <h2 className="loginTitle">Subir instrumento</h2>
+            <section className="upload">
                 <form encType="multipart/form-data" onSubmit={uploadInstrument}>
-                    <div className="login_prueba">
-                        <input className="inputLogin" type="text" placeholder="name" required
+                    <div className="upload-data">
+                        <div class="form-group">
+                            <label htmlFor="name">Nombre:</label>
+                            <input class="form-control" type="text" id="name" name="name" placeholder="name" required
                             onChange={e => setName(e.target.value)}
-                        />
-                        <select name="select" required onChange={e => setType(e.target.value)}>
-                            <option value="guitar">Guitarras</option>
-                            <option value="bass" selected>Bajos</option>
-                            <option value="drum">Baterías</option>
-                            <option value="piano">Pianos</option>
-                            <option value="other">Otros</option>
-                        </select>
-                        {/* <input className="inputLogin" type="text" placeholder="type" required
-                            onChange={e => setType(e.target.value)}
-                        /> */}
-                        <input className="inputLogin" type="number" placeholder="starting_price" required
+                            />
+                        </div>
+
+                        <div class="form-group">
+                            <label htmlFor="instrument">Instrumento:</label>
+                            <select class="form-control" name="select" required name="instrument" id="instrument" onChange={e => setType(e.target.value)}>
+                                <option value="">Elige una de las opciones</option>
+                                <option value="guitar">Guitarras</option>
+                                <option value="bass">Bajos</option>
+                                <option value="drum">Baterías</option>
+                                <option value="piano">Pianos</option>
+                                <option value="other">Otros</option>
+                            </select>
+                        </div>
+
+                        <div class="form-group">
+                            <label htmlFor="price">Precio inicial por días:</label>
+                            <input class="form-control" type="number" name="price" id="price" placeholder="starting_price" required
                             onChange={e => setPrice(e.target.value)}
-                        />
-                        <textarea className="inputLogin" placeholder="description" required
+                            />
+                        </div>
+
+                        <div class="form-group">
+                            <label htmlFor="description">Descripción:</label>
+                            <textarea class="form-control" name="description" id="description" placeholder="description" required
                             onChange={e => setDescription(e.target.value)}            
-                        />
-                        <label for="avatar">Sube la foto principal de tu instrumento:</label>
-                        <input type="file" id="avatar" name="avatar" accept="image/png, image/jpeg" onChange={e => setImage({selectedFile:e.target.files[0]})}></input>
+                            />
+                        </div>
 
+                        <div class="form-group">
+                            <label htmlFor="image">Imagen principal del instrumento:</label>
+                            <input class="form-control" type="file" name="image" id="image" accept="image/png, image/jpeg" onChange={e => setImage({selectedFile:e.target.files[0]})}></input>
+                        </div>
+                        
                         <button type="submit">Subir fotos</button>
-                    
-                    </div>
 
+                    </div>
                 </form>
-            </section>
-            
+            </section>            
         </main>
     )
 }

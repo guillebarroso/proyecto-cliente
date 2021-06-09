@@ -2,6 +2,7 @@ import React, { useEffect, useState } from "react";
 import axios from 'axios'
 import { Redirect, useParams } from "react-router";
 import { Link } from "react-router-dom";
+import ReactDatePicker from 'react-datepicker';
 import ReactStars from "react-rating-stars-component";
 
 const InstrumentProfile = (props) => {
@@ -12,11 +13,11 @@ const InstrumentProfile = (props) => {
     const [instrumentComments, setInstrumentComments] = useState([])
     const [instrumentImages, setInstrumentImages] = useState([])
     const [principalImage, setPrincipalImage] = useState("")
-    const [count, setCount] = useState(0)
-    const [stars, setStars] = useState(0)
+    const [stars, setStars] = useState(0.5)
     const [comentario, setComentario] = useState("")
-    const [prueba, setprueba] = useState(true)
-    
+    const [bandera, setBandera] = useState(true)
+    const [fechasOcupadas, setFechasOcupadas] = useState([]);
+    // const [cargando, setCargando] = useState(true)
   
 
     const obtenerDatos = async () => {
@@ -31,20 +32,18 @@ const InstrumentProfile = (props) => {
         }).then(response => {
             setInstrumentInfo(response.data[0]);
             setInstrumentComments(response.data[1]);
-            setInstrumentImages(response.data[2]);
             setPrincipalImage(response.data[0][0].principalImage);
-            setCount(response.data[3][0].count);
-            setStars(response.data[4][0].stars);
+            procesarFechas(response.data[2])
+            setStars(response.data[3][0].stars);
           });
     }
 
     useEffect(() => {
-        debugger
-        if(prueba){
+        if(bandera){
             obtenerDatos()
         }
         return () => {
-            setprueba(false);
+            setBandera(false);
         };
         
     },[]);
@@ -82,18 +81,35 @@ const InstrumentProfile = (props) => {
 
     }
 
+    const procesarFechas = (x) => {
+        let prueba = []
+        for (let y = 0; y < x.length; y++) {
+            for (let i = new Date(x[y].initial_date); i <= new Date(x[y].return_date); i.setDate(i.getDate() + 1)) {
+                prueba.push(new Date(i));               
+            }            
+        }
+        setFechasOcupadas(prueba)
+        
+    };
+
     return (
         <main className="instrument_profile">
-            {/* <div className="image_instrument_profile">
-                <img src={'http://localhost:80/api/instrument/image/' + principalImage} alt="Cargando imagen..."/>
-            </div> */}
+            {console.log(instrumentInfo)}
+            {console.log("Estrellas" + stars)}
             {instrumentInfo.map((item, i) =>
             <section className="datos_instrument_profile" key={i}>
                 <h2 className="loginTitle">{item.instrumentName}</h2>
                 <div className="data_instrument_profile">
                     <div className="etiqueta"><p>{item.type}</p></div>
                     <div className="etiqueta"><p>{item.location}</p></div> 
-                    <div className="etiqueta"><p>{stars} <i className="fa fa-star"></i></p></div>                         
+                    {stars===0?
+                    (
+                        <div className="etiqueta"><p>Sin puntuación</p></div>
+                        
+                    ):(
+                        <div className="etiqueta"><p>{stars} <i className="fa fa-star"></i></p></div>
+                    )}
+                                            
                 </div>
                 <div className="info_instrument_profile">
                     <div className="image_instrument_profile">
@@ -106,16 +122,16 @@ const InstrumentProfile = (props) => {
                             <p>{item.starting_price}€/día</p>                            
                         </div>
                         <div className="stars_instrument_profile">
-                            <ReactStars
+                            <ReactStars                            
                             count={5}
-                            value={0}
+                            value={item.stars}
                             onChange={ratingChanged}
                             size={64}
                             isHalf={true}
                             color="rgb(34, 128, 117)"
                             activeColor="rgb(52,209,191)"
                             size={''}
-                            />
+                            />                        
                             {/* El size de arriba lo pongo así para poder editarlo yo en el css como quiera */}
                         </div>
                         <div className="description_instrument_profile">
@@ -132,36 +148,41 @@ const InstrumentProfile = (props) => {
                 </div>
             </section>
             )}
-            <section className="images_instrument_profile">
-                <div className="instrument_images">
-                    {instrumentImages.map((item, i) =>
-                    <div className="box-img" key={i}>
-                        {/* mirar esto porque cuando esta carando es lo que da error */}
-                        <img src={'http://localhost:80/api/instrument/images/' + item.image_path} alt="Cargando imagen..."/>
-                    </div>
-                    )}
-                    <div className="box-img">
-                        <div className="box-link">
-                            <Link to={"/images/" + instrumentid}>Ver +</Link>
-                        </div>
-                    </div>
-                </div> 
-            </section>                                   
+
+            <section className="calendar-profile">
+                <h3>Fechas prohibidas...</h3>
+
+                <ReactDatePicker
+                startDate={new Date()}
+                minDate={new Date()}
+                excludeDates={fechasOcupadas}
+                monthsShown={2}
+                inline
+                />
+            </section>
+
             <section className="comments">
                 {console.log(props.nickname)}
                 <h3>Cometarios:</h3>
                 <form onSubmit={enviarComentario}>
-                    <textarea className="comment" type="text" placeholder="Introduce un comentario" required
-                        onChange={e => setComentario(e.target.value)}
-                    />                
-                    <button type="submit">Iniciar sesión</button>
+                    <div className="comments-form">
+                        <textarea className="comment" type="text" placeholder="Introduce un comentario" required
+                            onChange={e => setComentario(e.target.value)}
+                        />                
+                        <button type="submit">Iniciar sesión</button>
+                    </div>
                 </form>
                 <div className="comments-box">
                     {instrumentComments.map((item, i) =>
-                    <div className={item.nickname==props.nickname?"comment_you":"comment_other"} key={i}>
-                        <div>
-                            <div className="comment_nick">{item.nickname}</div>
-                            <div className="comment_text"><p>{item.comment}</p></div>
+                    <div className={item.nickname==props.nickname?"comment-you":"comment-other"} key={i}>
+                        <div className="comment-header">
+                            <div className="foto-perfil">
+                                <img className="enlacePerfil-chat" src={'http://localhost:80/api/avatar/' + item.image} alt="Foto perfil"/>
+                            </div>
+                            <div className="comment-nick">{item.nickname}</div>
+                        </div>
+                        <div className="comment-body">
+                            <div className="comment-text"><p>{item.comment}</p></div>
                         </div>
                     </div>
                     )}

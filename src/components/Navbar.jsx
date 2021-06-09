@@ -1,77 +1,73 @@
-import React, {useState } from "react";
+import React, { useEffect, useState } from "react";
 import {Link, Redirect} from "react-router-dom";
 import {withRouter} from 'react-router-dom'
+// import Cookies from 'js-cookie';
+import Cookies from 'universal-cookie';
+
+const cookies = new Cookies();
 
 const Navbar = (props) => {
 
-    const [open, setOpen] = useState(false)
     const [user, setUser] = useState("")
     const [buscar, setBuscar] = useState("")
+    const [prueba, setprueba] = useState(cookies.get('id'))
+    const [open, setOpen] = useState(false);
 
-    function handleChange() {
-        debugger
-        console.log(user);
-        console.log(buscar);
-        props.history.push('/search/' + buscar + "/" + user)
+    // function handleChange() {
+    //     debugger
+    //     console.log(user);
+    //     console.log(buscar);
+    //     props.history.push('/search/' + buscar + "/" + user)
+    // }
+
+    function myFunction() {
+        console.log("funciona");
+        var x = document.getElementById("myTopnav");
+        if (x.className === "navbar-nav2") {
+          x.className += "-responsive";
+          setOpen(true)
+        } else {
+          x.className = "navbar-nav2";
+        }
       }
+
     return (
         <nav className="navbar">
-            <ul className="navbar-nav">
-                <li className="nav-item"><Link to="/"><img className="logo-header" src="/assets/img/logoSharevolume-04.png" alt="Logo Share Volume"/></Link></li>
-                <li className="nav-item"><p className="shareVolume">Share Volume</p></li>
-                <li className="nav-item"><Link to="/login" className="login-button"><i className="fas fa-user"></i>Inicia sesión o regístrate</Link></li>
-                <li className="nav-item"><i className="fas fa-adjust"></i></li>  
-                {/* Arriba va esto onClick="darkmode()" */}
-                <li className="nav-item">
-                    <div className={open?"search open":"search"}>
-                        {open && (                        
-                        <form onSubmit={handleChange}>
-                            <div className="busqueda">
-                                <i class="fas fa-music" onClick={() => setUser("instrumet")}></i>
-                                <i class="fas fa-users" onClick={() => setUser("user")}></i>
-                                <input type="search" className="search-box" onChange={e => setBuscar(e.target.value)} />
-                            </div>
-                        </form>
-                        )}
-                        <span className="search-button" onClick={() => setOpen(!open)}>
-                            <span className="search-icon"></span>
-                        </span>
-                    </div>
-                </li>
-                {props.children}
+            <ul className="navbar-nav" >
+                <li className="nav-itemm"><Link to="/"><img className="logo-header" src="/assets/img/logoSharevolume-04.png" alt="Logo Share Volume"/></Link></li>
+                <li className="nav-itemm"><p className="shareVolume">Share Volume</p></li>
+                <ul className="navbar-nav2" id="myTopnav">
+                    {props.id === ''?
+                        (<li className="nav-item"><Link to="/login" className="login-button"><i className="fas fa-user"></i>Iniciar sesión</Link></li>)
+                        :(
+                        <li className="nav-item"><Link to="/upload" className="login-button">Añadir productos</Link></li>
+                    )}
+                     
+                    {/* <li className="nav-item">
+                        <div className="search open">
+                            <form onSubmit={handleChange}>
+                                <div className="busqueda">
+                                    <i class="fas fa-music" onClick={() => setUser("instrumet")}></i>
+                                    <i class="fas fa-users" onClick={() => setUser("user")}></i>
+                                    <input type="search" className="search-box" onChange={e => setBuscar(e.target.value)} />
+                                </div>
+                            </form>
+                            <span className="search-button">
+                                <span className="search-icon"></span>
+                            </span>
+                        </div>
+                    </li> */}
+                    <li className="nav-item">
+                        <a href="#" className="dropdown-button" onClick={() => setOpen(!open)}>
+                        <i className="fas fa-chevron-circle-down"></i>
+                        </a>
+
+                        {open && props.children}
+                    </li>
+                </ul>
+                <li className="nav-item-icon" onClick={myFunction}><i class="fas fa-bars"></i></li>
             </ul>
         </nav>
-        
-        // <header className="menu">
-        //     <div className="contenedor">
-        //         <Link to="/"><img className="logo-header" src="assets/img/logoSharevolume-04.png" alt="logo Share Volume"/></Link>
-        //         <p className="shareVolume">SHARE VOLUME {props.name}</p>
-        //         <div className="menuResponsive"><i className="fas fa-bars"></i></div>
-        //         <div>
-        //         {props.name ?(
-        //             <div>
-        //                 <Link to="/upload"><div className="botones">
-        //                     <p>Añadir producto</p></div>
-        //                 </Link> 
-        //                 <Link to="/login" className="nav-link" onClick={logout}>Logout</Link>
-        //             </div>
-        //         )                
-        //         : (<Link to="/login"><div className="botones">
-        //                 <p>Iniciar Sesión / Regístrate</p></div>
-        //             </Link>
-                
-        //         )}
-        //                 <a href="#"><i className="fas fa-search"></i></a>
-        //                 {props.name ?(
-        //                 <div className="iconos-menu">
-        //                     <a href="#"><i className="fas fa-bell"></i></a>
-        //                     <a href="#"><i className="fas fa-comment-alt"></i></a>
-        //                     <i className="fas fa-adjust" onClick="darkmode()"></i>
-        //                     <div></div>
-        //                 </div>):""}         
-        //         </div>
-        //     </div>
-        // </header>
     )
 }
 

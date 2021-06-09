@@ -3,34 +3,52 @@ import { useEffect } from 'react';
 import axios from 'axios'
 import ReactDatePicker from 'react-datepicker';
 import "react-datepicker/dist/react-datepicker.css";
+import moment from 'moment';
+import { useParams } from "react-router";
+
 
 const Book = (props) => {
+    let { instrumentid } = useParams();
     const [instrument_Id, setInstrumentId] = useState('');
     const [costumer_id, setCostumerId] = useState('');
     const [fechaInicio, setFechaInicio] = useState('');
     const [fechaDev, setFechaDev] = useState('');
     const [instruments, setInstruments] = useState([])
     const [fechasOcupadas, setFechasOcupadas] = useState([]);
+    const [users, setUsers] = useState([]);
+
+    //Mirar si está bien que cualquier usuario pueda entrar y ver las fechas
+    //Poner if props vacio que lo redirija a otra zona
+
 
     useEffect(() => {
         (
             async () => {
                 debugger
                 axios.all([
+                    //Mirar esto. Porque el instrumento, el id, se lo doy en la nueva pagina de mis isntrumentos
+                    // await axios({
+                    //     method: 'post',
+                    //     url: 'http://localhost:80/api/user/instruments',
+                    //     withCredentials: true,
+                    //     data: {
+                    //         "user_id": 1
+                    //     }
+                    // }),
+                    await axios({
+                        method: 'get',
+                        url: 'http://localhost:80/api/dates/rentedInstrument/' + instrumentid,
+                        withCredentials: true,
+                    }),
                     await axios({
                         method: 'post',
-                        url: 'http://localhost:80/api/user/instruments',
+                        url: 'http://localhost:80/api/chat/info',
                         withCredentials: true,
                         data: {
                             "user_id": 1
                         }
-                    }),
-                    await axios({
-                        method: 'get',
-                        url: 'http://localhost:80/api/dates/rentedInstrument/1',
-                        withCredentials: true,
-                    })               
-                ]).then(axios.spread((data1, data2)=> {setInstruments(data1.data); procesarFechas(data2.data)}));
+                    })            
+                ]).then(axios.spread((data2, data3)=> {procesarFechas(data2.data); setUsers(data3.data)}));
             }
         )();
     }, []);
@@ -39,23 +57,38 @@ const Book = (props) => {
     const reservar = async (e) => {
         e.preventDefault();
         debugger
-        console.log(startDate);
+        console.log(moment(startDate.toString).format);
         console.log(endDate);
-        procesarDatos(startDate, endDate)
+        console.log(moment(endDate).format());
+        console.log(moment(startDate).format);
+        console.log(generateDateToday(startDate));
+        console.log(generateDateToday(endDate));
         
-        // await axios({
-        //     method: 'post',
-        //     url: 'http://localhost:80/api/rent/instrument',
-        //     withCredentials: true,
-        //     data: {
-        //         "owner_id": props.id,
-        //         "instrument_id": instrument_Id,
-        //         "customer_id": 2,
-        //         "initial_date": fechaInicio,
-        //         "return_date": fechaDev
-        //     }
-        //   });
+        console.log(endDate.toString);
+        // procesarDatos(startDate, endDate)
+        await axios({
+            method: 'post',
+            url: 'http://localhost:80/api/rent/instrument',
+            withCredentials: true,
+            data: {
+                "owner_id": props.id,
+                "instrument_id": instrumentid,
+                "customer_id": costumer_id,
+                "initial_date": generateDateToday(startDate),
+                "return_date": generateDateToday(endDate),
+            }
+            }).then((response) => console.log(response.data));
 
+    }
+
+    function generateDateToday(d){
+        var year = d.getFullYear();
+        var month = ("0" + (d.getMonth() + 1)).slice(-2);
+        var day = ("0" + d.getDate()).slice(-2);
+        var hour = ("0" + d.getHours()).slice(-2);
+        var minutes = ("0" + d.getMinutes()).slice(-2);
+        var seconds = ("0" + d.getSeconds()).slice(-2);
+        return year + "-" + month + "-" + day + " "+ hour + ":" + minutes + ":" + seconds;
     }
 
     const procesarFechas = (x) => {
@@ -64,89 +97,31 @@ const Book = (props) => {
         for (let y = 0; y < x.length; y++) {
             for (let i = new Date(x[y].initial_date); i <= new Date(x[y].return_date); i.setDate(i.getDate() + 1)) {
                 prueba.push(new Date(i));               
-            }
-            
+            }            
         }
         setFechasOcupadas(prueba)
         
     };
 
-    const procesarDatos = (x, y) => {
-        debugger
+    // const procesarDatos = (x, y) => {
+    //     debugger
 
-        let prueba5 = "";
-        for (let dia = new Date(x); y <= new Date(y); dia.setDate(dia.getDate() + 1)) {
-            prueba5 = new Date(dia);
-            prueba5.setHours(0, 0, 0, 0);            
-            console.log(prueba5);
+    //     let prueba5 = "";
+    //     for (let dia = new Date(x); y <= new Date(y); dia.setDate(dia.getDate() + 1)) {
+    //         prueba5 = new Date(dia);
+    //         prueba5.setHours(0, 0, 0, 0);            
+    //         console.log(prueba5);
             
-            console.log(prueba5);
-            console.log(fechasOcupadas);
+    //         console.log(prueba5);
+    //         console.log(fechasOcupadas);
 
-            for (let x = 0; y <= fechasOcupadas.length; x++) {
-                if (fechasOcupadas[0].getTime() == prueba5.getTime){
-                    console.log("por fin");
-                }
-            }
-
-            // fechasOcupadas.forEach(fecha => {
-            //     console.log(fecha);
-            //     if (fecha.getTime() == prueba5.getTime){
-            //         console.log("por fin");
-            //     }
-                
-                
-            // });
-
-        }
-
-        
-
-
-
-
-
-
-        // let prueba = x;
-
-        // prueba.setHours(0);            
-        // prueba.setMinutes(0);
-        // prueba.setSeconds(0);
-        // prueba.setMilliseconds(0);
-
-        // var isoDateString = prueba.toISOString();
-        // let prueba2 = new Date(isoDateString)
-        // console.log(prueba2);
-
-        // for (let i = 0; i < fechasOcupadas.length; i++) {
-        //     let dd = new Date(fechasOcupadas[i]).getTime();
-        //     let ddd = new Date(prueba2).getTime();
-        //     console.log(dd);
-        //     console.log(ddd);
-        //     if(dd == ddd){
-        //         console.log('funciona');
-        //     }
-            
-        // }
- 
-        // for (let i = x; i <= y; i.setDate(i.getDate() + 1)) {
-        //     let prueba = i;
-
-        //     prueba.setHours(0);            
-        //     prueba.setMinutes(0);
-        //     prueba.setSeconds(0);
-        //     prueba.setMilliseconds(0);
-
-        // var isoDateString = prueba.toISOString();
-        // let prueba2 = new Date(isoDateString)
-        // console.log(prueba2);
-        //     if (fechasOcupadas.includes(prueba2)) {
-        //         console.log("funciona");
-                
-        //     }            
-            
-        // }
-    };
+    //         for (let x = 0; y <= fechasOcupadas.length; x++) {
+    //             if (fechasOcupadas[0].getTime() == prueba5.getTime){
+    //                 console.log("por fin");
+    //             }
+    //         }
+    //     }   
+    // };
 
     const [startDate, setStartDate] = useState(new Date());
     const [endDate, setEndDate] = useState(null);
@@ -155,26 +130,23 @@ const Book = (props) => {
         setStartDate(start);
         setEndDate(end);
         console.log(startDate);
-        console.log(endDate);
-        
-
-        
+        console.log(endDate);       
     };
 
 
 
     return (
-        <main>
+        <main className="book">
             {console.log(instruments)}
             {console.log(fechasOcupadas)}
-            <header>
-                <h2 className="">Gestionar reserva</h2>
-                <h3>Hola {props.name}! ¿Quién será el afortunado que pueda disfrutar de tu instrumento?</h3>
-            </header>
+
+            <h2 className="loginTitle">Gestionar reserva</h2>
             
             <section>
+                <h3>Hola {props.name}! ¿Quién será el afortunado que pueda disfrutar de tu instrumento?</h3>
+
                 <form onSubmit={reservar}>
-                    <div className="login_prueba">
+                    <div className="book-data">
 
                         <ReactDatePicker
                         selected={startDate}
@@ -188,30 +160,23 @@ const Book = (props) => {
                         inline
                         />
 
-                        {/* <input className="inputLogin" type="datetime-local" required
-                            onChange={e => setFechaInicio(e.target.value)}
-                        />
-                        <input className="inputLogin" type="datetime-local" required
-                            onChange={e => setFechaDev(e.target.value)}
-                        /> */}
-                        
-                        <select onChange={e => setInstrumentId(e.target.value)}>
+                        {/* <select className="book-select" onChange={e => setInstrumentId(e.target.value)}>
                                 <option></option>
                             {instruments.map(item =>
                                 <option className="visible" value={item.id}>{item.name}</option>                                    
                     
                             )}
-                        </select>
-                        <button type="submit">Confirmar</button>
+                        </select> */}
+                        <select className="book-select" onChange={e => setCostumerId(e.target.value)}>
+                                <option></option>
+                            {users.map(item =>
+                                <option className="visible" value={item.id}>{item.name}</option>                                    
                     
+                            )}
+                        </select>
+                        <button type="submit">Confirmar</button>                    
 
-                        {/* <footer>
-                            <img className="logoRegistro" src="assets/img/logoSharevolume-04.png" alt="Logo de Share Volume"/>
-                            <p>Nos alegra tenerte entre nosotros ;)</p>            
-                            <img className="logoRegistro" src="assets/img/logoSharevolume-04.png" alt="Logo de Share Volume"/>
-                        </footer> */}
                     </div>
-
                 </form>
             </section>
         </main>

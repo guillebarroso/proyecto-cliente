@@ -98,20 +98,20 @@ const Profile = (props) => {
             <h2 className="loginTitle">Hola {name}, ¿qúe quieres hacer?</h2>
             <section className="profile-sections">
                 <div className="profile-section">
-                    <h3>Editar algún instrumento</h3>
-                    <i class="fas fa-music"></i>
+                    <h3>Ver mis instrumentos</h3>
+                    <Link to={"/"}><i class="fas fa-music"></i></Link>
                 </div>
                 <div className="profile-section">
-                    <h3>Gestionar reservas</h3>
-                    <i class="fas fa-address-book"></i>                  
+                    <h3>Subir intrumento</h3>
+                    <Link to={"/reservar"}><i class="fas fa-upload"></i></Link>                 
                 </div>
                 <div className="profile-section">
                     <h3>Ir a algún chat</h3>
-                    <i class="fas fa-comments"></i>                
+                    <Link to={"/details/chat"}><i class="fas fa-comments"></i></Link>               
                 </div>
             </section>
-            <section className="profile-edit">
-                <h3>Editar perfil</h3>                
+            <h2 className="loginTitle">Aquí también puedes editar tu perfil</h2> 
+            <section className="profile-edit">                               
                 <div className="profile-img-edit">
                     <div className="profile-img-shw">
                         <img src={'http://localhost:80/api/avatar/' + image} alt="Imagen de perfil"/>
@@ -137,7 +137,7 @@ const Profile = (props) => {
                             <input type="number" class="form-control" id="age" name="age" value={age} onChange={e => setAge(e.target.value)}/>
                         </div>
                         <div class="form-group">
-                            <label htmlFor="nickname">Nickname::</label>
+                            <label htmlFor="nickname">Nickname:</label>
                             <input type="text" class="form-control" id="nickname" name="nickname" value={nickname} onChange={e => setNickname(e.target.value)}/>
                         </div>
                         <div class="form-group">

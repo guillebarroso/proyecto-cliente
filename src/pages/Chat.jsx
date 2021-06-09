@@ -2,35 +2,48 @@ import React, {SyntheticEvent, useState} from 'react';
 import { useEffect } from 'react';
 import axios from 'axios'
 import Echo from 'laravel-echo';
+import { useParams } from "react-router";
 
-    window.Pusher = require('pusher-js');
-    window.Echo = new Echo({
-        broadcaster: 'pusher',
-        key: 'd54277d39bdd4af0472f',
-        cluster: 'eu',
-        forceTLS: true
-    });
-    
-    //Poner aqui lo de recibir param?
+import Cookies from 'universal-cookie';
 
-    window.Echo.channel('chat')
-    .listen('.message', (e) => {
-        console.log(e);
-        // if(e.status == 0 || props.id == e.rec_id){
-        //     axios.post('/conversations/'+ 1);
-        // }
-        let div = document.createElement("div");
-        div.innerHTML = e.message;
+const cookies = new Cookies();
+let prueba = cookies.get('id');
+
+window.Pusher = require('pusher-js');
+window.Echo = new Echo({
+    broadcaster: 'pusher',
+    key: 'd54277d39bdd4af0472f',
+    cluster: 'eu',
+    forceTLS: true
+});
+
+//Poner aqui lo de recibir param?
+
+window.Echo.channel('chat')
+.listen('.message', (e) => {
+    debugger
+    console.log(e);
+    console.log(prueba)
+    let div = document.createElement("div");
+    div.innerHTML = e.message;
+    if(prueba == e.sender_id){
         div.className = "sender";
-        document.getElementsByClassName("chat-messages")[0].appendChild(div);
-    });
+    }
+    else{
+        div.className = "receiver";
+    }
+    
+    document.getElementsByClassName("chat-messages")[0].appendChild(div);
+});
+
 
 const Chat = (props) => {
     const [message, setMessage] = useState('');
     const [messages, setMessages] = useState([]);
-    const [users, setUsers] = useState([{user:0}]);
+    const [prueba, setprueba] = useState(true)
 
-    
+    let { userid } = useParams();
+
 
     const enviarMensaje = async (e) => {
         e.preventDefault();
@@ -40,65 +53,40 @@ const Chat = (props) => {
             url: 'http://localhost:80/api/send/message',
             withCredentials: true,
             data: {
-                "sender_user_id": 1,
-                "reciever_user_id": 2,
+                "user_id": props.id,
+                "sender_user_id": props.id,
+                "reciever_user_id": userid,
                 "message": message
             }
           });
     }
 
-    const obtenerDatos = async (x,e) => {
+    const obtenerDatos = async () => {
         debugger
-        e.preventDefault();
-        console.log(e.target.value);
-        
         await axios({
             method: 'post',
             url: 'http://localhost:80/api/read/message',
             withCredentials: true,
             data: {
-                "sender_user_id": 1,
-                "reciever_user_id": x
+                "sender_user_id": props.id,
+                "reciever_user_id": userid
             }
         }).then(responseArr => {setMessages(responseArr.data);});
     }
 
-    const obtenerUsuarios = async () => {
-        debugger
-        await axios({
-            method: 'post',
-            url: 'http://localhost:80/api/chat/info',
-            withCredentials: true,
-            data: {
-                "user_id": 1,
-            }
-        }).then(responseArr => {
-            console.log(responseArr.data);
-            setUsers(responseArr.data);
-        });
-    }
-
     useEffect(() => {
-        obtenerUsuarios()        
-    }, []);
-
-    
-    
-    
+        if(prueba){
+            obtenerDatos()
+        }
+        return () => {
+            setprueba(false);
+        };
+        
+    },[]);
 
     return (   
         <main className="chat">
-            {console.log('Funciona:' + props.other_user)}  
-            {console.log('Funciona:' + props.id)}
-
-            <section>
-            {users.map((item, i)=>
-                <div key={i} className="">
-                    <a onClick={(e) => obtenerDatos(item.user, e)} href="">{item.user}</a>
-                </div>                
-            )   
-            }                
-            </section>
+            {console.log('Funciona:' + userid)}
 
             <section>
                 <div className="chat-header">
@@ -108,15 +96,13 @@ const Chat = (props) => {
                     {console.log(messages)}
                     <div>
                         <div className="chat-messages">
-                        {messages.map((item, i)=>
-                            <div key={i} className={item.sender_user_id == props.id? 'sender':'receiver'}>
-                                {item.message}
-                            </div>                
-                        )}
+                            {messages.map((item, i)=>
+                                <div key={i} className={item.sender_user_id === props.id? 'sender':'receiver'}>
+                                    {item.message}
+                                </div>                
+                            )}
                         </div>
-                    </div>
-                    
-                    
+                    </div>                   
                 </div>
                 <form className="chat-text" onSubmit={enviarMensaje}>
                     <input className="" type="text" placeholder="Escribe algo..." 

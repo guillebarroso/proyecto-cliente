@@ -1,7 +1,9 @@
 import React, {SyntheticEvent, useState} from 'react';
 import axios from 'axios'
 import {withRouter} from 'react-router-dom'
+import Cookies from 'universal-cookie';
 
+const cookies = new Cookies();
 
 const Login = (props) => {
     const [name, setName] = useState('');
@@ -74,8 +76,9 @@ const Login = (props) => {
                     "email": email,
                     "password":password
                 }
-            }).then((response) => props.setName(response.data[0].name));
-            
+            }).then((response) => {cookies.set('id',response.data[0].id , { path: '/' }); props.setId(response.data[0].id);props.setName(response.data[0].name)});
+
+                        
             setEmail("")
             setPassword("")            // setError(null)
             props.history.push('/')

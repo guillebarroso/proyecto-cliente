@@ -66,7 +66,9 @@ main{
     display: flex;
     justify-content: center;
     align-items: center;
-    flex-direction: column;
+}
+.chat section{
+    width: 60%;
 }
 .chat-container::-webkit-scrollbar {
 	width: 5px;
@@ -83,12 +85,10 @@ main{
 .chat-header{
     min-height: 7vh;
     background-color: var(--color-negro);
-    width: 60%;
     padding-top: 1rem;
 }
 
 .chat-container{
-    /* background-image: url("/assets/img/logoSharevolume-04.png"); */
     background-image: url("logoSharevolume-04.png");
     background-size: 50%;
     background-repeat: no-repeat;
@@ -96,14 +96,12 @@ main{
     border: 1px solid;
     border-color: var(--color-azul);
     height: 70vh;
-    width: 60%;
     overflow-y: scroll;
     display: flex;
     flex-direction: column-reverse;
 }
 
 .chat-text{
-    width: 60%;
     min-height: 7vh;
     height: 70%;
     border: 1px solid;
@@ -135,8 +133,7 @@ main{
 
 .receiver{
     background-color: rgb(230, 241, 245);
-    align-self: flex-start;
-    
+    align-self: flex-start;    
 }
 
 .sender{
@@ -147,27 +144,137 @@ main{
 .chat-messages{
     display: flex;
     flex-direction: column;
-
 }
+
+  /*----------------------------------------------------------
+------------------------------------------------------------
+                    CHAT DETAILS
+------------------------------------------------------------
+-----------------------------------------------------------*/
+
+.chat-details{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.details-card{
+    border: 1px solid;
+    border-color: var(--color-azul);
+    border-radius: 10px;
+    margin: 1rem;
+    display: flex;
+    padding: 0.5rem;
+    height: 20vh;
+    width: 50vw;
+}
+
+.details-img{
+    
+    width: 20%;
+}
+
+.details-img img{
+    width: 100%;
+    height: 100%;
+}
+
+.details-data{
+    width: 80%;
+    display: flex;
+    padding-left: 1rem;
+    align-items: center;
+    justify-content: space-between;
+}
+
+.enlace-chat{
+}
+
+ /*----------------------------------------------------------
+------------------------------------------------------------
+                    COMENTARIOS 
+------------------------------------------------------------
+-----------------------------------------------------------*/
+.comments{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    width: 80%; 
+}
+.comments form{
+    width: 100%; 
+    display: flex;
+    justify-content: center;
+    margin-bottom: 1rem;
+}
+
+.comments-form{
+    display: flex;
+    width: 80%;       
+}
+
+.comments-box{
+    display: flex;
+    flex-direction: column;
+    width: 80%;
+}
+
+.comment-other ,.comment-you{
+    width: 80%;
+    border: 4px solid;
+    border-radius: 10px;
+    padding: 1rem;
+    margin-bottom: 1rem;
+}
+
+.comment-other{
+    align-self: center;
+    border-color: var(--color-negro);
+}
+
+.comment-you{
+    align-self: flex-end;   
+    border-color: var(--color-azul);
+}
+
+.comment-header{
+    display: flex;
+    align-items: center;
+    border-bottom: 2px solid;
+    padding-bottom: 1rem;
+}
+
+.comment-nick{
+    margin-left: 3rem;
+}
+
+.comment-body{
+    padding-bottom: 1rem;
+    padding-top: 1rem;
+}
+
+.comment-text p{
+    margin: 0;
+}
+
 
  /*----------------------------------------------------------
 ------------------------------------------------------------
                     Perfil instrumento 
 ------------------------------------------------------------
 -----------------------------------------------------------*/
-/* General */
-.instrument_profile ,.comments{
+
+.instrument_profile{
     display: flex;
     flex-direction: column;
     align-items: center;
 }
 
-.datos_instrument_profile ,.comments ,.images_instrument_profile{
+.datos_instrument_profile ,.images_instrument_profile{
     width: 80%;    
 }
 
-.data_instrument_profile{
-    
+.data_instrument_profile{    
     display: flex;
     justify-content: center;
 }
@@ -176,6 +283,7 @@ main{
     border: 1px solid;
     border-color: var(--color-azul);
     border-radius: 14px;
+    margin: 0.2rem;
 }
 
 .etiqueta i{
@@ -190,15 +298,12 @@ main{
     height: 100%;
 }
 
-/* info instrumento */
-
 .info_instrument_profile{
     display: flex;
-    /* flex-direction: column; */
 }
 
 .image_instrument_profile{
-    width: 50%;
+    width: 45%;
     display: flex;
     align-items: center;
     justify-content: center;
@@ -210,7 +315,7 @@ main{
 }
 
 .text_instrument_profile{
-    width: 50%;
+    width: 55%;
 }
 
 .text_instrument_profile ,.image_instrument_profile{
@@ -221,6 +326,7 @@ main{
     display: flex;
     justify-content: center;
     align-items: center;
+    margin-bottom: 1.5rem;
 }
 
 .price_instrument_profile{
@@ -244,75 +350,89 @@ main{
     margin: 0;
 }
 
-/* imagenes instrumento */
-
-.images_instrument_profile{
-    display: flex;
-    justify-content: center;
-}
-
-.instrument_images{
-    display: flex;
-    flex-wrap: wrap;
-    justify-content: center;
-    align-items: center;
-    border: 1px solid;
-    border-color: var(--color-azul);
-    border-radius: 10px;
-    background-color: var(--color-negro);
-}
-
-.box-img{
-    height: 120px;
-    width: 120px;
-    padding: 0.5rem;
-
-}
-.box-img img, .box-link{
-    height: 100%;
-    width: 100%;
-}
-
-.box-link{
-    background-color: var(--color-azul);
-    display: flex;
-    justify-content: center;
-    align-items: center;
-}
-
-/* comentarios instrumento */
-
-
-.comments-box{
-    display: flex;
-    flex-direction: column;
-}
-
-.comment_other ,.comment_you{
-    width: 67%;
-    border: 1px solid;
-    margin-bottom: 1rem;
-}
-
-.comment_other{
-    align-self: flex-start;
-    border-color: var(--color-negro);
-    
-
+.calendar-profile h3{
+    text-align: center;
 }
 
 
-.comment_you{
-    align-self: flex-end;   
-    border-color: var(--color-azul); 
+@media screen and (max-width: 700px) {    
+    .info_instrument_profile{
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+    }
+    .stars_instrument_profile {
+        font-size: 7vh;
+    }
+    .image_instrument_profile ,.text_instrument_profile{
+        width: 100%;
 
+    }
+
+    .comments{
+        width: 100%;
+        
+    }
 }
+
+@media screen and (max-width: 530px) {    
+    .react-datepicker__month-container{
+        width: 100%;
+    }
+}
+
+@media screen and (max-width: 340px) { 
+    .comment-you{
+        align-self: center;
+        
+    }
+    .comment-nick {
+        margin-left: 0.5rem;
+    }
+    .stars_instrument_profile {
+        font-size: 6vh;
+    }
+}
+
+
+@media screen and (max-width: 320px) { 
+    .comment-you{
+        align-self: center;
+        
+    }
+    .comment-nick {
+        margin-left: 0.5rem;
+    }
+    .stars_instrument_profile {
+        font-size: 5vh;
+    }
+}
+
+@media screen and (max-width: 255px) { 
+    .stars_instrument_profile {
+        font-size: 4vh;
+    }
+
+    .comments-box {
+        width: 219px;
+    }
+}
+
 
  /*----------------------------------------------------------
 ------------------------------------------------------------
                     PROFILE 
 ------------------------------------------------------------
 -----------------------------------------------------------*/
+input, select, textarea {
+    width: 100%;
+    padding: 12px;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    resize: vertical;
+  }
+
+
 .profile{
     display: flex;
     flex-direction: column;
@@ -325,6 +445,7 @@ main{
 
 .profile-sections{
     display: flex;
+    margin-bottom: 3rem;
 }
 
 .profile-section{
@@ -342,6 +463,14 @@ main{
     align-items: center;
 }
 
+.profile-edit form{
+    width: 100%;
+    display: flex;
+    justify-content: center;
+    margin: 1rem;
+    
+}
+
 .profile-img-edit{
 
 }
@@ -355,6 +484,87 @@ main{
 .profile-img-shw img{
     height: 100%;
     
+}
+
+.profile-data-edit{
+    width: 80%;
+    border: 1px solid;
+    border-color: var(--color-azul);
+    border-radius: 10px;
+    padding: 1rem;
+    display: flex;
+    flex-direction: column;
+    
+}
+
+.form-group{
+    margin-bottom: 1rem;
+    display: flex;
+    align-items: center;
+}
+
+.form-group label{
+    width: 25%;
+    margin-bottom: 1rem;
+
+}
+
+.form-group input ,.form-group textarea{
+    width: 75%;
+    margin-bottom: 1rem;
+}
+
+  /*----------------------------------------------------------
+------------------------------------------------------------
+                    SUBIR INSTRUMENTO 
+------------------------------------------------------------
+-----------------------------------------------------------*/
+
+.upload{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+
+.upload form{
+    width: 60%;
+}
+
+.upload-data{
+    border: 1px solid;
+    border-color: var(--color-azul);
+    border-radius: 10px;
+    padding: 1rem;
+    display: flex;
+    flex-direction: column;
+}
+
+.upload-data select{
+    width: 75%;
+}
+
+
+
+@media screen and (max-width: 740px) { 
+    .form-group {
+        margin-bottom: 1rem;
+        display: flex;
+        flex-direction: column;
+    }
+    .form-group label ,.form-group input, .form-group textarea ,.upload-data select{
+        width:100%;
+    }
+
+    .upload form {
+        width: 80%;
+    }
+}
+
+@media screen and (max-width: 230px) { 
+    .upload form {
+        width: 90%;
+    }
 }
 
 
@@ -371,9 +581,19 @@ main{
     align-items: center;
 }
 
-.edit-images-instrument , .editar-instrumentos .datos_instrument_profile{
+.edit-images-instrument{
     display: flex;
     width: 80%;
+}
+
+.edit-images-bottons{
+    display: flex;
+    flex-direction: column;
+    margin: 1rem;
+}
+
+.edit-images-bottons button{
+    margin: 1rem;
 }
 
 .image_instrument_edit{
@@ -381,7 +601,7 @@ main{
     display: flex;
     flex-direction: column;
     align-items: center;
-    padding: 1rem;
+    padding: 2rem;
 }
 .image_instrument_edit img{
     max-width: 100%;
@@ -390,13 +610,23 @@ main{
 
 .add-images{
     width: 50%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.add-images h3{
+    text-align: center;
 }
 
 .form-upload-images ,.edit-gallery{
     display: flex;
     flex-direction: column;
     align-items: center;
+}
 
+.form-upload-images button ,.file-label, .file-images{
+    margin-bottom: 1rem;
 }
 
 .file-images{
@@ -427,6 +657,22 @@ main{
 
 .file-label i{
 	font-size: 3rem; /* "hand" cursor */
+}
+
+.galeria-link{
+    margin: 1rem;
+}
+
+.edit-gallery{
+    border: 5px solid;
+    border-color: var(--color-negro);
+    border-radius: 10px;
+    padding: 1rem;
+}
+
+.edit-gallery h4{
+    text-align: center;
+    margin: 0px;
 }
 
 
@@ -574,41 +820,30 @@ text-align: center;
     margin : 0 auto ;
 }
 
-.instruments .contenedorCuadros{     
+.contenedorCuadros{     
     display: flex;
     flex-wrap: wrap;
-    /* align-content: space-between; */
-    /* justify-content: space-between; */
-    /* margin: 1rem; */
     justify-content: center;
 }
 
-
-
-.instruments .contenedorCuadros .visible{
-    height: 50vh;
-    width: 50vh;
+.visible{
+    height: 300px;
+    width: 300px;
     background-color: var(--color-azul);
     position: relative;
-    /* margin-bottom: 55px; */
     margin: 1rem;
 }
 
-.instruments .contenedorCuadros div img{
+.contenedorCuadros img{
     height: 100%;
     width: 100%;
     display:block;        
 }
 
-.instruments section .botones{
-    margin : 0 auto ;
-    margin-bottom: 5vh;
-}
-
 
 /* Ventana oculta */
 
-.instruments .contenedorCuadros .descripcion {
+.descripcion {
     display:none;
     color: var(--color-blanco);
     background-color: rgba(0, 0, 0, 0.85);
@@ -620,28 +855,73 @@ text-align: center;
     word-wrap: break-word;
 }
 
-.descripcion header, i{
-    color: var(--color-azul); 
-}
-
-.descripcion header{
-    font-size: 1.5rem; 
-    margin-left: 10px;
-    margin-top: -20px;
-}
-.descripcion i{
-    font-size: 1.8rem; 
-}
-
-.descripcion h1, h1+p , .estrellas{
+.descripcion h4{
+    font-size: 1.5rem;
+    margin: 0;
     text-align: center;
-    color:var(--color-blanco);
-    font-weight: bolder;
+    padding: 1rem;
+}
 
+.card-back{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.card-back *{
+    margin: 0.2rem;
+}
+
+.card-description{
+    max-height: 65px
+}
+
+.card-rate{
+    display: none;
 }
 
 .visible:hover .descripcion { 
     display:block; 
+}
+
+@media screen and (max-width: 335px) { 
+    .visible {
+        width: 200px;
+        height: 200px;
+    }
+    .card-rate{
+        display: block;
+    }
+
+    .card-rate-visual{
+        display: none;
+    }
+
+    .card-description{
+        display: none;
+    }
+}
+
+@media screen and (max-width: 250px) { 
+    .visible {
+        width: 150px;
+        height: 150px;
+    }
+
+}
+
+@media screen and (max-width: 250px) { 
+    .visible {
+        width: 100px;
+        height: 100px;
+    }
+    .descripcion p, .descripcion div, .descripcion h2{
+        display: none;
+    }
+
+    .descripcion .card-link-chat{
+        display: block;
+    }
 }
 
 /*----------------------------------------------------------
@@ -651,13 +931,13 @@ text-align: center;
 -----------------------------------------------------------*/
 
 
-.inputLogin{
+/* .inputLogin{
     height: 9vh;
     padding: 1rem;
     margin-bottom: 1.5rem;
     border: 2px solid;
     border-color: var(--color-azul);
-}
+} */
 
 .loginTitle{
     font-size: 2.3rem;
@@ -781,6 +1061,32 @@ text-align: center;
     margin-top: 10px;
 }
 
+/*----------------------------------------------------------
+------------------------------------------------------------
+                    RESERVAS 
+------------------------------------------------------------
+-----------------------------------------------------------*/
+
+.book ,.book-data{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.book-data{
+    display: flex;
+}
+
+.book-select{
+    width: 60%;
+    margin: 1rem;
+}
+
+.react-datepicker {
+    
+    margin: 1rem;
+}
+
 
 /*----------------------------------------------------------
 ------------------------------------------------------------
@@ -874,32 +1180,44 @@ text-align: center;
 
 /* galeria */
 
+
+.gallery-container {
+    padding-top: .9375rem;
+    display: flex;
+    justify-content: center;
+    flex-wrap: wrap;
+    margin-left: 10vh;
+    margin-right: 10vh;
+}
+
 .gallery-card {
     position: relative;
     overflow: hidden;
     margin-bottom: 1.875rem;
-    width: 30vw; 
-    height: 30vh;
+    width: 300px; 
+    height: 300px;
+    background-color: var(--color-blanco);
+    margin: 2rem;
 }
 
 .gallery-thumbnail {
+    position: absolute;
+    top: 0;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    margin: auto;
     max-width: 100%;
     height: auto;
     border-radius: 4px;
 }
 
-.gallery-container {
-    padding-top: .9375rem;
-    display: flex;
-    flex-wrap: wrap;
-}
-
-.prueba4{
+.modal-img{
     width: 100%;
     height: 100%;
 }
 
-#prueba5{
+#gallery-close{
     position: absolute;
     top: 0;
     right: 8px;
@@ -962,11 +1280,11 @@ ul {
     justify-content: center;
   }
 
-  .dropdown-button{
+.dropdown-button{
 
-  }
+}
 
-  .dropdown {
+.dropdown {
     z-index: 10;
     position: absolute;
     top: 58px;
@@ -978,139 +1296,108 @@ ul {
     padding: 1rem;
     overflow: hidden;
     transition: height 500ms ease;
-  }
+}
 
-  .menu-item {
-    height: 50px;
+
+.nav-item-icon{
+    display: none;
+}
+
+.navbar-nav2-responsive{
+    max-width: 100%;
+    height: 10vh;
     display: flex;
-    align-items: center;
-    border-radius: 8px;
-    transition: background 500ms;
-    padding: 0.5rem;
-  }
+    /* justify-content: space-between; */
+    
+}
 
-  .menu-item:hover {
-    background-color: #525357;
-  }
+.navbar-nav2{
+    max-width: 100%;
+    height: 10vh;
+    display: flex;
+    justify-content: space-between;
 
+}
 
+@media screen and (max-width: 300px) {
+    .nav-item{
+        display:none;
+    }
+    .nav-item-icon {
+        display: block;
+    }
+    .navbar-nav2-responsive .nav-item{
+        display: flex;
+        align-items: center;
+        justify-content: flex-end;
+        background-color: var(--color-negro);
+    }
+
+    .navbar-nav2-responsive{
+        max-width: 100%; 
+        position: absolute;
+        top: 10vh;
+        left: 0;
+        height: 100%;
+        display: flex;
+        flex-direction: column;
+        z-index: 11;
+        width: 100%;
+        
+    }
+
+    .dropdown{
+        z-index: 10;
+        position: static;
+        /* top: 58px; */
+        /* width: 300px; */
+        transform: none; 
+        background-color: #242526;
+        border: 1px solid #474a4d;
+        border-radius: 8px;
+        padding: 1rem;
+        overflow: hidden;
+        transition: none;
+    }
+    .dropdown-button {
+        display: none;
+    }
+}
 
 i{
     font-size: 1.7rem;
 }
+* {
+box-sizing: border-box;
+}
 
-  
-
-
-
-  * {
-    box-sizing: border-box;
-  }
-
-  .search, .search.open{
-      display: flex;
-      align-items: center;
-  }
+.search, .search.open{
+    display: flex;
+    align-items: center;
+}
   
   
-  .search {
-    /* width: 100px; */
-    height: 80%;
-    background-color: var(--color-negro);
-    position: relative;
-    overflow: hidden;
-    transition: all 0.5s ease;
-  }
-  .search:before {
-    content: "";
-    display: block;
-    width: 3px;
-    height: 65%;
-    position: relative;
-    background-color: var(--color-azul);
-    transition: all 0.5s ease;
-  }
-  .search.open {
-    /* width: 420px; */
-  }
-  .search.open:before {
-    height: 65%;
-    position: absolute;
-  }
+.search {
+height: 80%;
+background-color: var(--color-negro);
+position: relative;
+overflow: hidden;
+transition: all 0.5s ease;
+}
   
-  .search-box {
-    border-radius: 20px;
-    width: 75%;
-    height: 65%;
-    box-shadow: none;
-    border: none;
-    padding-left: 10px;
-  }
-  .search-box:focus {
-    outline: none;
-  }
   
-  .search-button {
-    /* width: 100px;
-    display: block;
-    position: absolute;
-    right: 0; */
-    cursor: pointer;
-  }
+.search-box {
+border-radius: 20px;
+width: 75%;
+height: 65%;
+box-shadow: none;
+border: none;
+padding-left: 10px;
+}
+.search-box:focus {
+outline: none;
+}
   
-  .search-icon {
-    width: 20px;
-    height: 20px;
-    border-radius: 40px;
-    border: 3px solid var(--color-azul);
-    display: block;
-    position: relative;
-    margin-left: 5px;
-    transition: all 0.5s ease;
-    margin-bottom: 0.5rem;
-  }
-  .search-icon:before {
-    content: "";
-    width: 3px;
-    height: 5px;
-    position: absolute;
-    right: -2px;
-    top: 14px;
-    display: block;
-    background-color: var(--color-azul);
-    transform: rotate(-45deg);
-    transition: all 0.5s ease;
-  }
-  .search-icon:after {
-    content: "";
-    width: 3px;
-    height: 5px;
-    position: absolute;
-    right: -5px;
-    top: 17px;
-    display: block;
-    background-color: var(--color-azul);
-    transform: rotate(-45deg);
-    transition: all 0.5s ease;
-  }
-  .open .search-icon {
-    margin: 0;
-    width: 30px;
-    height: 30px;
-    border-radius: 60px;
-  }
-  .open .search-icon:before {
-    transform: rotate(52deg);
-    right: 11px;
-    top: 10px;
-    height: 9px;
-  }
-  .open .search-icon:after {
-    transform: rotate(-230deg);
-    right: 11px;
-    top: 5px;
-    height: 9px;
-  }
 
 .busqueda{
     display: flex;
@@ -1119,5 +1406,17 @@ i{
 }
 
 .busqueda i ,.busqueda input{
-    margin: 1rem;
+    margin: 0.5rem;
 }
+
+main{
+    background-color: z;
+}
+
+
+
+
+/* /////////////
+Menu responsive
+///////////// */
+

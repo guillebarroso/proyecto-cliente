@@ -106,16 +106,15 @@ const EditInstrument = () => {
 
     return (
         <main className="editar-instrumentos">
-            {console.log(name)}
-            {console.log(price)}
-            {console.log(description)}
-            {console.log(newImage)}
+            <h2 className="loginTitle">Editar instrumento</h2>
             <section className="edit-images-instrument">
                 <div className="image_instrument_edit">
                     <img src={'http://localhost:80/api/instrument/image/' + principalImage} alt="Imagen de perfil"/>
                     <form onSubmit={editarImagen}>
-                        <input type="file" name="file" id="file" accept="image/png, image/jpeg" onChange={e => setNewImage({selectedFile:e.target.files[0]})}></input>
-                        <button type="submit">Editar imagen principal</button>
+                        <div className="edit-images-bottons">
+                            <input type="file" name="file" id="file" accept="image/png, image/jpeg" onChange={e => setNewImage({selectedFile:e.target.files[0]})}></input>
+                            <button type="submit">Editar imagen principal</button>
+                        </div>
                     </form>
                 </div>
                 <div className="add-images">
@@ -130,8 +129,8 @@ const EditInstrument = () => {
                             <button type="submit">Subir fotos</button>
                         </div>
                     </form>
-                    <div className="edit-gallery">
-                        <Link to={"/images/" + instrumentid}>Ver +</Link>
+                    <Link className="galeria-link" to={"/images/" + instrumentid}>Ver galería</Link>
+                    <div className="edit-gallery">                        
                         <div>
                             <h4>¿Qué es la galería?</h4>
                             <p>
@@ -145,7 +144,8 @@ const EditInstrument = () => {
                 </div>
             </section>
 
-            <section className="datos_instrument_profile">
+            <h2 className="loginTitle">Datos</h2>
+            <section className="profile-data-edit">
                 <form onSubmit={editarDatos}>
                     <div class="form-group">
                         <label htmlFor="name">Nombre:</label>

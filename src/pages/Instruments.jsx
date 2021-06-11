@@ -96,11 +96,6 @@ const Instruments = (props) => {
                     )}
                 </div>
                 
-                <Pagination
-                postsPerPage={postsPerPage}
-                totalPosts={instruments.length}
-                paginate={paginate}
-                />
                 
             </section>
         </main>

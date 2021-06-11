@@ -12,19 +12,35 @@ const Instruments = (props) => {
     const indexOfLastPost = currentPage * postsPerPage;
     const indexOfFirstPost = indexOfLastPost - postsPerPage;
     const currentPosts = instruments.slice(indexOfFirstPost, indexOfLastPost);
+    const [prueba, setprueba] = useState(true);
+    const [instrumentna, setInstrumentna] = useState("")
 
-    useEffect(() => {        
-        const obtenerDatos = async () => {
-            await axios({
-                method: 'get',
-                url: 'http://localhost:80/api/info/instruments',
-                withCredentials: true,
-            }).then(response => {
-            setInstruments(response.data);
-            });
+    const [userid, setuserid] = useState(props.id)
+
+
+    const obtenerDatos = async () => {
+        await axios({
+            method: 'get',
+            url: 'http://localhost:80/api/info/instruments',
+            withCredentials: true,
+        }).then(response => {
+        setInstruments(response.data);
+        if (response.data.length == 0) {
+            setInstrumentna("Vaya, parece que no hay instrumentos todavía")                               
         }
-        obtenerDatos();
-    }, []);
+        });
+    }
+        
+
+    useEffect(() => {
+        if(prueba){
+            obtenerDatos();
+        }
+        return () => {
+            setprueba(false);
+        };
+        
+    },[]);
 
     function conversion(x){
         x = x*10
@@ -41,9 +57,13 @@ const Instruments = (props) => {
                     <h2>Echa un vistazo</h2>
                 </header>
 
+                {instrumentna != ""?(
+                <div className="advert-own-instruments"><p>{instrumentna}</p></div>
+                ):("")}
+
                 <div className="contenedorCuadros">
-                    {currentPosts.map(item =>
-                    <div className="visible">
+                    {currentPosts.map((item, i) =>
+                    <div className="visible" key={i}>
                         <img src={'http://localhost:80/api/instrument/image/' + item.instrument_image} alt="Instrumento"></img>
                         <div className="descripcion">
                             <header>
@@ -68,7 +88,7 @@ const Instruments = (props) => {
                                     />
                                 </div>                                
                                 <p className="card-description">{item.description}</p>
-                                <Link className="card-link-chat" to={"/instrument/" + item.id}>Ver perfil</Link>
+                                <Link className="card-link-chat" to={props.id==="visitor"?("/login"):("/instrument/" + item.id)}>Ver perfil</Link>
                             </section>
                         </div>
                     </div>

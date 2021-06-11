@@ -1,6 +1,9 @@
 import React from 'react'
 import {withRouter} from 'react-router-dom'
 import {Link, Redirect} from "react-router-dom";
+import Cookies from 'universal-cookie';
+
+const cookies = new Cookies();
 
 const DropdownMenu = (props) => {
 
@@ -13,26 +16,27 @@ const DropdownMenu = (props) => {
     });
     props.setName("");
     props.setId("");
-    props.history.push('/')
+    cookies.remove('id', { path: '/' });
+    props.history.push('/login')
   }
 
-  function myFunction2() {
-    console.log("funciona");
-    var x = document.getElementById("myTopnav");
-    if (x.className === "navbar-nav2") {
-      x.className += "-responsive";
-    } else {
-      x.className = "navbar-nav2";
-    }
-  }
+  // function myFunction2() {
+  //   console.log("funciona");
+  //   var x = document.getElementById("myTopnav");
+  //   if (x.className === "navbar-nav2") {
+  //     x.className += "-responsive";
+  //   } else {
+  //     x.className = "navbar-nav2";
+  //   }
+  // }
   
 
   return (
 
       <div className="dropdown">
-        <li className="nav-item"><i className="fas fa-adjust" onClick={myFunction2}></i></li> 
+        {/* <li className="nav-item"><i className="fas fa-adjust" onClick={myFunction2}></i></li>  */}
         <Link className="menu-item" to="/profile">Mi perfil</Link>
-        <p className="menu-item">Menu</p>
+        <Link className="menu-item" to="/myinstruments">Instrumentos</Link>
         <a href="#" className="menu-item" onClick={()=> logout()}>Cerrar sesión</a>
           
       </div>

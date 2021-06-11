@@ -16,13 +16,13 @@ const ImageSlide = () => {
                     <div style={{'backgroundImage': `url(${slideImages[0]})`}}>
                         <div className="publi1">
                             <header>
-                                <h2>¿Necesitas un instrumento?</h2>
+                                <h3>¿Necesitas un instrumento?</h3>
                             </header>
-                            <section>
+                            <section className="slider-box">
                                 <p>
                                     ¡Encuentra lo que buscas! 
                                 </p>
-                                <Link to="/instruments">Buscar</Link> 
+                                <Link className="enlace-chat" to="/instruments">Buscar</Link> 
                             </section>
                         </div>
                     </div>
@@ -31,11 +31,11 @@ const ImageSlide = () => {
                     <div style={{'backgroundImage': `url(${slideImages[1]})`}}>
                         <div className="publi2">
                             <header>
-                                <h1>¿Tienes dudas de como funciona ShareVolume?</h1>
+                                <h3>¿Tienes dudas de como funciona ShareVolume?</h3>
                             </header>
                             <section>
                                 <p>
-                                    ¡No te preocupes! Te lo explicamos paso a paso.
+                                    ¡No te preocupes! Te lo explicamos paso a paso en nuestro vídeo tutorial!
                                 </p>
                             </section>
                         </div>
@@ -45,7 +45,7 @@ const ImageSlide = () => {
                     <div style={{'backgroundImage': `url(${slideImages[2]})`}}>
                         <div className="publi3">
                             <header>
-                                <h1>¿Te atreves a compartir?</h1>
+                                <h3>¿Te atreves a compartir?</h3>
                             </header>
                             <section>
                                 <p>

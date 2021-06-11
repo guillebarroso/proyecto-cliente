@@ -2,6 +2,7 @@ import React, { useEffect, useState } from "react";
 import axios from 'axios'
 import { useParams } from "react-router";
 import Modal from 'react-modal';
+import { Link } from "react-router-dom";
 
 
 const Images = () => {
@@ -37,6 +38,7 @@ const Images = () => {
   const [images, setImages] = useState([])
   const [image, setImage] = useState("")
   const [prueba, setprueba] = useState(true)
+  const [instrumentna, setInstrumentna] = useState("")
 
   const obtenerDatos = async () => {
     await axios({
@@ -45,6 +47,9 @@ const Images = () => {
       withCredentials: true,
       }).then(response => {
         setImages(response.data);
+        if (response.data.length == 0) {
+          setInstrumentna("Vaya, parece que no tienes ninguna foto todavía")                               
+      }
     });
   }  
 
@@ -71,6 +76,9 @@ const Images = () => {
     <main>
       <h2 className="loginTitle">Galería de imágenes</h2>
       <section className="gallery-container">
+        {instrumentna != ""?(
+                  <div className="advert-own-instruments"><p>{instrumentna}. Vuelve a editar tu instrumento <Link to={"/edit/" + instrumentid}>aquí</Link></p></div>
+                  ):("")}
         {console.log(images)}
         {images.map(item =>
         <div className="gallery-card">
@@ -79,6 +87,7 @@ const Images = () => {
         )}
 
         <Modal
+        ariaHideApp={false}
         isOpen={modalIsOpen}
         onRequestClose={closeModal}
         style={customStyles}

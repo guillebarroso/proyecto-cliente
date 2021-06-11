@@ -4,7 +4,6 @@ import {withRouter} from 'react-router-dom'
 
 
 const UploadInstruments = (props) => {
-    const [id, setId] = useState(0)
     const [name, setName] = useState('');
     const [type, setType] = useState('');
     const [price, setPrice] = useState('');
@@ -32,12 +31,11 @@ const UploadInstruments = (props) => {
             data: data3
         }).then(response => {
         console.log(response.data.id);
-        setId(response.data.id);
+        props.history.push('/edit/'+ response.data.id)
         });
 
-        if (id!=0) {
-            props.history.push('/edit/'+ id)            
-        }
+                    
+      
     }
 
 
@@ -85,8 +83,9 @@ const UploadInstruments = (props) => {
                             <input class="form-control" type="file" name="image" id="image" accept="image/png, image/jpeg" onChange={e => setImage({selectedFile:e.target.files[0]})}></input>
                         </div>
                         
-                        <button type="submit">Subir fotos</button>
-
+                        <div className="button-group">
+                            <button className="button" type="submit">Subir</button>
+                        </div>
                     </div>
                 </form>
             </section>            

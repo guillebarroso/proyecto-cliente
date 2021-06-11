@@ -103,26 +103,6 @@ const Book = (props) => {
         
     };
 
-    // const procesarDatos = (x, y) => {
-    //     debugger
-
-    //     let prueba5 = "";
-    //     for (let dia = new Date(x); y <= new Date(y); dia.setDate(dia.getDate() + 1)) {
-    //         prueba5 = new Date(dia);
-    //         prueba5.setHours(0, 0, 0, 0);            
-    //         console.log(prueba5);
-            
-    //         console.log(prueba5);
-    //         console.log(fechasOcupadas);
-
-    //         for (let x = 0; y <= fechasOcupadas.length; x++) {
-    //             if (fechasOcupadas[0].getTime() == prueba5.getTime){
-    //                 console.log("por fin");
-    //             }
-    //         }
-    //     }   
-    // };
-
     const [startDate, setStartDate] = useState(new Date());
     const [endDate, setEndDate] = useState(null);
     const onChange = (dates) => {
@@ -142,7 +122,7 @@ const Book = (props) => {
 
             <h2 className="loginTitle">Gestionar reserva</h2>
             
-            <section>
+            <section className="reservas">
                 <h3>Hola {props.name}! ¿Quién será el afortunado que pueda disfrutar de tu instrumento?</h3>
 
                 <form onSubmit={reservar}>
@@ -160,21 +140,14 @@ const Book = (props) => {
                         inline
                         />
 
-                        {/* <select className="book-select" onChange={e => setInstrumentId(e.target.value)}>
-                                <option></option>
-                            {instruments.map(item =>
-                                <option className="visible" value={item.id}>{item.name}</option>                                    
-                    
-                            )}
-                        </select> */}
                         <select className="book-select" onChange={e => setCostumerId(e.target.value)}>
                                 <option></option>
                             {users.map(item =>
-                                <option className="visible" value={item.id}>{item.name}</option>                                    
+                                <option value={item.id}>{item.name}</option>                                    
                     
                             )}
                         </select>
-                        <button type="submit">Confirmar</button>                    
+                        <button className="button" type="submit">Confirmar</button>                    
 
                     </div>
                 </form>

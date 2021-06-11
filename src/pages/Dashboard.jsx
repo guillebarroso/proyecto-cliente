@@ -13,11 +13,11 @@ const Dashboard = (props) => {
                 <header>
                     <h2>¿Te echamos un cable?</h2>
                 </header>
-                <section>
+                <section className="tutorial-section">
                     <figure>
                         <img src="assets/img/logoSharevolume-04.png" alt="Logo de Share Volume"/>
                     </figure>
-                    <a className="botones" href="#"><div>Empezar</div></a>
+                    <button className="button-large" href="#">Empezar</button>
                 </section>            
             </section>
 

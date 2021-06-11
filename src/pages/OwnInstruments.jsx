@@ -4,6 +4,7 @@ import { Link } from "react-router-dom";
 import ReactStars from "react-rating-stars-component";
 import Pagination from "../components/Pagination";
 
+
 const OwnInstruments = (props) => {
     const [instruments, setInstruments] = useState([]);
     const [currentPage, setCurrentPage] = useState(1);
@@ -11,19 +12,34 @@ const OwnInstruments = (props) => {
     const indexOfLastPost = currentPage * postsPerPage;
     const indexOfFirstPost = indexOfLastPost - postsPerPage;
     const currentPosts = instruments.slice(indexOfFirstPost, indexOfLastPost);
+    const [instrumentna, setInstrumentna] = useState("")
+    const [prueba, setprueba] = useState(true);
 
-    useEffect(() => {        
-        const obtenerDatos = async () => {
-            await axios({
-                method: 'get',
-                url: 'http://localhost:80/api/myinstrument/info/' + props.id,
-                withCredentials: true,
-            }).then(response => {
+           
+    const obtenerDatos = async () => {
+        await axios({
+            method: 'get',
+            url: 'http://localhost:80/api/myinstrument/info/' + props.id,
+            withCredentials: true,
+        }).then(response => {
+            console.log(response.data);
             setInstruments(response.data);
-            });
+            if (response.data.length == 0) {
+                setInstrumentna("Vaya, parece que no tienes instrumentos todavía")                               
+            }
+        });
+    }
+    
+
+    useEffect(() => {
+        if(prueba){
+            obtenerDatos()
         }
-        obtenerDatos();
-    }, []);
+        return () => {
+            setprueba(false);
+        };
+        
+    },[]);
 
     function conversion(x){
         x = x*10
@@ -39,6 +55,10 @@ const OwnInstruments = (props) => {
                 <header>
                     <h2>Tus instrumentos</h2>
                 </header>
+
+                {instrumentna != ""?(
+                <div className="advert-own-instruments"><p>{instrumentna}. Sube instrumentos <Link to={"/upload"}>aquí</Link></p></div>
+                ):("")}
 
                 <div className="contenedorCuadros">
                     {currentPosts.map(item =>

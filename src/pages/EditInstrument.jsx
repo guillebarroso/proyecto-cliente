@@ -2,13 +2,13 @@ import React, { useEffect, useState } from "react";
 import axios from 'axios'
 import { useParams } from "react-router";
 import { Link } from "react-router-dom";
+import {withRouter} from 'react-router-dom'
 
 
-const EditInstrument = () => {
+const EditInstrument = (props) => {
     let { instrumentid } = useParams();
     const [images, setImages] = useState([]);
     const [instrumentInfo, setInstrumentInfo] = useState([])
-    const [instrumentImages, setInstrumentImages] = useState([])
     const [name, setName] = useState('')
     const [price, setPrice] = useState('')
     const [description, setDescription] = useState('')
@@ -18,26 +18,41 @@ const EditInstrument = () => {
     const [prueba, setprueba] = useState(true)
 
     const obtenerDatos = async () => {
-        await axios({
-            method: 'post',
-            url: 'http://localhost:80/api/instrument/info',
-            withCredentials: true,
-            data: {
-                "instrument_id": instrumentid
+        debugger
+        try{
+
+            if(props.id === "visitor" || props.id === undefined){
+                props.history.push('/login');
             }
-            // COmprobar si esti viene vacio
-        }).then(response => {
-            console.log(response.data);
-            setInstrumentImages(response.data[2]);
-            setPrincipalImage(response.data[0][0].principalImage);
-            setName(response.data[0][0].instrumentName);
-            setPrice(response.data[0][0].starting_price);
-            setDescription(response.data[0][0].description);
-          });
+
+            if(props.id != ""){   
+                await axios({
+                    method: 'post',
+                    url: 'http://localhost:80/api/instrument/info/edit',
+                    withCredentials: true,
+                    data: {
+                        "instrument_id": instrumentid,
+                        "user_id":props.id
+                    }
+                    // COmprobar si esti viene vacio
+                }).then(response => {
+                    console.log(response.data);
+                    setPrincipalImage(response.data[0].principalImage);
+                    setName(response.data[0].instrumentName);
+                    setPrice(response.data[0].starting_price);
+                    setDescription(response.data[0].description);
+                }).catch(function (error) {
+                    if(error.response.status === 404){
+                      props.history.push("/");
+                    }});
+            }
+        }catch{
+            alert("Hay un error")
+        }
+        
     }
 
     useEffect(() => {
-        debugger
         if(prueba){
             obtenerDatos()
         }
@@ -65,7 +80,23 @@ const EditInstrument = () => {
         url: 'http://localhost:80/api/instrument/images',
         withCredentials: true,
         data: data4
-        }).then((response) => console.log(response.data));
+        }).then(
+            (response) => {console.log(response.data);            
+        });
+        props.history.push("/images/" + instrumentid);
+    }
+
+    const deleteInstrument = async (e) => {
+        debugger
+        e.preventDefault();
+        await axios({
+            method: 'delete',
+            url: 'http://localhost:80/api/delete/instrument/' + instrumentid,
+            withCredentials: true,
+            }).then((response) => {
+                console.log(response.data);
+                props.history.push("/");
+            });       
     }
 
     const editarDatos = async (e) => {
@@ -113,7 +144,9 @@ const EditInstrument = () => {
                     <form onSubmit={editarImagen}>
                         <div className="edit-images-bottons">
                             <input type="file" name="file" id="file" accept="image/png, image/jpeg" onChange={e => setNewImage({selectedFile:e.target.files[0]})}></input>
-                            <button type="submit">Editar imagen principal</button>
+                            <div className="button-group">
+                                <button className="button" type="submit">Subir imagen</button>
+                            </div>  
                         </div>
                     </form>
                 </div>
@@ -126,7 +159,7 @@ const EditInstrument = () => {
                                 <span className="selected-files">{images.length} archivos seleccionados</span>
                             </label>
                             <input type="file" name="file-multiple" id="file-multiple" className="file-images" multiple accept="image/png, image/jpeg" onChange={e => setImages(e.target.files)}></input>
-                            <button type="submit">Subir fotos</button>
+                            <button className="button" type="submit">Subir fotos</button>
                         </div>
                     </form>
                     <Link className="galeria-link" to={"/images/" + instrumentid}>Ver galería</Link>
@@ -159,17 +192,21 @@ const EditInstrument = () => {
                         <label htmlFor="description">Descripción:</label>
                         <textarea class="form-control" id="description" name="description" value={description} onChange={e => setDescription(e.target.value)}/>
                     </div>
-                    <button type="submit">Editar datos instrumento</button>
+                    <div className="button-group">
+                        <button className="button" type="submit">Subir</button>
+                    </div>
                 </form>
             </section>
 
-            <section>
+            <section className="danger">
                 <div>
                     <h2>Dangerous Zone</h2>
                 </div>
 
                 <form>
-                    <button type="submit">Elimanar instrumento</button>
+                    <div className="button-group">
+                        <button onClick={deleteInstrument} type="submit">Eliminar instrumento</button>
+                    </div>
                 </form>
             </section>
             
@@ -177,4 +214,4 @@ const EditInstrument = () => {
     )
 }
 
-export default EditInstrument
+export default withRouter(EditInstrument)

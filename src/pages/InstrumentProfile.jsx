@@ -4,6 +4,8 @@ import { Redirect, useParams } from "react-router";
 import { Link } from "react-router-dom";
 import ReactDatePicker from 'react-datepicker';
 import ReactStars from "react-rating-stars-component";
+import {withRouter} from 'react-router-dom'
+
 
 const InstrumentProfile = (props) => {
 
@@ -13,7 +15,7 @@ const InstrumentProfile = (props) => {
     const [instrumentComments, setInstrumentComments] = useState([])
     const [instrumentImages, setInstrumentImages] = useState([])
     const [principalImage, setPrincipalImage] = useState("")
-    const [stars, setStars] = useState(0.5)
+    const [stars, setStars] = useState(0)
     const [comentario, setComentario] = useState("")
     const [bandera, setBandera] = useState(true)
     const [fechasOcupadas, setFechasOcupadas] = useState([]);
@@ -21,6 +23,7 @@ const InstrumentProfile = (props) => {
   
 
     const obtenerDatos = async () => {
+        try{
         await axios({
             method: 'post',
             url: 'http://localhost:80/api/instrument/info',
@@ -28,7 +31,6 @@ const InstrumentProfile = (props) => {
             data: {
                 "instrument_id": instrumentid
             }
-            // COmprobar si esti viene vacio
         }).then(response => {
             setInstrumentInfo(response.data[0]);
             setInstrumentComments(response.data[1]);
@@ -36,6 +38,9 @@ const InstrumentProfile = (props) => {
             procesarFechas(response.data[2])
             setStars(response.data[3][0].stars);
           });
+        }catch{
+            alert("Hay algún error")
+        }
     }
 
     useEffect(() => {
@@ -48,19 +53,36 @@ const InstrumentProfile = (props) => {
         
     },[]);
 
+    const verificar = (x) => {
+        debugger
+        console.log(x);
+        if(props.id != x && props.id != ""){             
+            props.history.push("/chat/" + x)           
+
+        }  
+        else{
+            alert("No puedes acceder al chat")
+        }  
+      };
+
     const ratingChanged = async (newRating) => {
         debugger
-        console.log(newRating);
-        await axios({
-            method: 'post',
-            url: 'http://localhost:80/api/rate/instruments',
-            withCredentials: true,
-            data: {
-                "user_id": props.id,
-                "stars": newRating,
-                "liked_instrument_id": instrumentid
-            }
-          });
+        if (props.id != "") {
+            console.log(newRating);
+            await axios({
+                method: 'post',
+                url: 'http://localhost:80/api/rate/instruments',
+                withCredentials: true,
+                data: {
+                    "user_id": props.id,
+                    "stars": newRating,
+                    "liked_instrument_id": instrumentid
+                }
+              });            
+        }
+        else{
+            alert("Tu puntuación no se realizará hasta que inicies sesión")
+        }      
       };
 
     const enviarComentario = async (e) => {
@@ -94,15 +116,14 @@ const InstrumentProfile = (props) => {
 
     return (
         <main className="instrument_profile">
-            {console.log(instrumentInfo)}
-            {console.log("Estrellas" + stars)}
+            {console.log(stars)}
             {instrumentInfo.map((item, i) =>
             <section className="datos_instrument_profile" key={i}>
                 <h2 className="loginTitle">{item.instrumentName}</h2>
                 <div className="data_instrument_profile">
                     <div className="etiqueta"><p>{item.type}</p></div>
                     <div className="etiqueta"><p>{item.location}</p></div> 
-                    {stars===0?
+                    {stars===0 || stars === null?
                     (
                         <div className="etiqueta"><p>Sin puntuación</p></div>
                         
@@ -142,7 +163,7 @@ const InstrumentProfile = (props) => {
                                 <img className="enlacePerfil-chat" src={'http://localhost:80/api/avatar/' + item.userImage} alt="Foto perfil"/>                                           
                             </div>
                             <div><p>{item.nickname}</p></div> 
-                            <Link to="/" type="submit">Chat</Link>
+                            <a  href="" onClick={() => verificar(item.userID)}>Chat</a>
                         </div>
                     </div>
                 </div>
@@ -162,14 +183,13 @@ const InstrumentProfile = (props) => {
             </section>
 
             <section className="comments">
-                {console.log(props.nickname)}
                 <h3>Cometarios:</h3>
                 <form onSubmit={enviarComentario}>
                     <div className="comments-form">
                         <textarea className="comment" type="text" placeholder="Introduce un comentario" required
                             onChange={e => setComentario(e.target.value)}
                         />                
-                        <button type="submit">Iniciar sesión</button>
+                        <button className="button" type="submit">Enviar</button>
                     </div>
                 </form>
                 <div className="comments-box">
@@ -187,11 +207,11 @@ const InstrumentProfile = (props) => {
                     </div>
                     )}
                 </div>
-            </section>
+            </section>           
             
             
         </main>
     )
 }
 
-export default InstrumentProfile
+export default withRouter(InstrumentProfile)

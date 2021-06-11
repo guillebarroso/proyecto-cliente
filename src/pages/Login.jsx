@@ -17,23 +17,24 @@ const Login = (props) => {
     const [description, setDescription] = useState('');
     const [image, setImage] = useState([]);
     const [prueba, setprueba] = useState([])
+    const [userna, setUserna] = useState("")
     
 
 
-    const procesarDatos = e => {
+    const procesarDatos = async (e) => {
         e.preventDefault()
-        if(!email.trim()) {
+        debugger
+        var validRegex = /^[a-zA-Z0-9.!#$%&'*+/=?^_`{|}~-]+@[a-zA-Z0-9-]+(?:\.[a-zA-Z0-9-]+)*$/;
+        if(email.match(validRegex)) {
+            console.log("bien");
             // setError("Escribe un email")
-          return
         }
         if(!password.trim()) {
             // setError("Escribe una password")
-            return
-          }
-          if(password.length<6) {
+        }
+        if(password.length<8) {
             // setError("Escribe una contraseña de 6 o mas carácteres")
-            return
-          }
+        }
           //aqui debería ir si es login, y si no sigo comprobando
         if(esregistro){
             registrar()
@@ -42,9 +43,8 @@ const Login = (props) => {
         }
     }
 
-    const registrar = async (e) => {
-        e.preventDefault();
-        debugger
+
+    const registrar = async () => {
         const data3 = new FormData();
         data3.append('name', name);
         data3.append('surname', surname);
@@ -60,12 +60,19 @@ const Login = (props) => {
             url: 'http://localhost:80/api/register',
             withCredentials: true,
             data: data3
-          });
-
+        }).then((response) => {
+            console.log(response.data[0]);
+            cookies.set('id',response.data[0].id , { path: '/' });
+            props.setId(response.data[0].id);
+            props.setName(response.data[0].name);
+            props.history.push('/');
+        }).catch(function (error) {
+            if(error.response.status === 422){
+                setUserna(error.response.data.message);
+            }});
     }        
 
     const login = async (e) => {
-        debugger
         e.preventDefault();
         try{    
             await axios({
@@ -77,7 +84,6 @@ const Login = (props) => {
                     "password":password
                 }
             }).then((response) => {cookies.set('id',response.data[0].id , { path: '/' }); props.setId(response.data[0].id);props.setName(response.data[0].name)});
-
                         
             setEmail("")
             setPassword("")            // setError(null)
@@ -120,15 +126,16 @@ const Login = (props) => {
                                     <input className="inputLogin" type="password" placeholder="Password" required
                                         onChange={e => setPassword(e.target.value)}/>
 
-                                    <button type="submit">Iniciar sesión</button>
+                                    <div className="button-group">
+                                        <button className="button" type="submit">Iniciar sesión</button>
+                                    </div>
                                 </div>
                             </form>                        
                         )}
                         {esregistro && (
-                            <form onSubmit={registrar}>
+                            <form onSubmit={procesarDatos}>
                                 <div className="registerContent">
                                     <h3>Ya estabas tardando...</h3>
-                                    <label htmlFor=""></label>
                                     <input className="inputLogin" type="text" name="name" placeholder="Name" required
                                         onChange={e => setName(e.target.value)}
                                     />
@@ -138,6 +145,9 @@ const Login = (props) => {
                                     <input className="inputLogin" type="text" name="nickname" placeholder="Nickname" required
                                         onChange={e => setNickname(e.target.value)}
                                     />
+
+                                    
+
                                     <input className="inputLogin" type="number" name="name" placeholder="Age" required
                                         onChange={e => setAge(e.target.value)}
                                     />
@@ -211,7 +221,13 @@ const Login = (props) => {
                                         onChange={e => setImage({selectedFile:e.target.files[0]})}
                                     />
 
-                                    <button type="submit">Registrar</button>
+                                    {userna === ""? (""):(<p className="rojo">{userna}</p>)}
+
+                                    <div className="button-group">
+                                        <button className="button" type="submit">Registrar</button>
+                                    </div>
+
+                                    
                                 </div>
                             </form>
                         )}

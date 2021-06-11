@@ -17,13 +17,8 @@ window.Echo = new Echo({
     forceTLS: true
 });
 
-//Poner aqui lo de recibir param?
-
 window.Echo.channel('chat')
 .listen('.message', (e) => {
-    debugger
-    console.log(e);
-    console.log(prueba)
     let div = document.createElement("div");
     div.innerHTML = e.message;
     if(prueba == e.sender_id){
@@ -47,7 +42,6 @@ const Chat = (props) => {
 
     const enviarMensaje = async (e) => {
         e.preventDefault();
-        debugger
         await axios({
             method: 'post',
             url: 'http://localhost:80/api/send/message',
@@ -63,6 +57,9 @@ const Chat = (props) => {
 
     const obtenerDatos = async () => {
         debugger
+        if(props.id === "visitor" || props.id === undefined){
+            props.history.push('/login');
+        }
         await axios({
             method: 'post',
             url: 'http://localhost:80/api/read/message',
@@ -108,7 +105,7 @@ const Chat = (props) => {
                     <input className="" type="text" placeholder="Escribe algo..." 
                         onChange={e => setMessage(e.target.value)}            
                     />
-                    <button type="submit">Enviar Mensaje</button>                
+                    <button className="button" type="submit">Enviar</button>                
                 </form>
             </section>
             

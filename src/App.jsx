@@ -45,7 +45,9 @@ function App() {
             setNickname(response.data.nickname);
           })
           .catch(function (error) {
-            console.log(error.response.status)}); // 401        
+            if(error.response.status === 401){
+              setId("visitor");
+            }}); // 401        
       }
     )();
   },[]);
@@ -63,20 +65,16 @@ function App() {
           <Route path="/instrument/:instrumentid" component={() => <InstrumentProfile nickname={nickname} id={id}/>}/>
           <Route path="/images/:instrumentid" component={() => <Images id={id}/>}/>
           <Route path="/user/:userid" component={() => <Users id={id}/>}/>
-          <Route path="/edit/:instrumentid" component={() => <EditInstrument/>}/>
-          <Route path="/reservar/:instrumentid" component={() => <Book id={id} name={name}/>}/>          
-
+          <Route path="/edit/:instrumentid" component={() => <EditInstrument id={id}/>}/>
+          <Route path="/reservar/:instrumentid" component={() => <Book id={id} name={name}/>}/>
           <Route path="/chat/:userid" component={() => <Chat id={id} other_user={other_user}/>}/>
           <Route path="/details/chat" component={() => <ChatDetails id={id}/>}/>
-          <Route path="/profile" component={() => <Profile nickname={nickname} id={id}/>}/>
+          <Route path="/profile" component={() => <Profile nickname={nickname} id={id} setName={setName} setId={setId}/>}/>
           <Route path="/myinstruments" component={() => <OwnInstruments id={id}/>}/>
-
           <Route path="/login" component={() => <Login name={name} setName={setName} setId={setId} />}/>
-          <Route path="/instruments" component={() => <Instruments setOther_user={setOther_user}/>}/>
-          
+          <Route path="/instruments" component={() => <Instruments id={id} />}/>          
           <Route path="/upload" component={() => <UploadInstruments id={id}/>}/>
-          <Route path="/" component={() => <Dashboard name={name}></Dashboard>}/> 
-
+          <Route path="/" component={() => <Dashboard name={name}></Dashboard>}/>
         </Switch>
         <Footer></Footer>
       </BrowserRouter>  

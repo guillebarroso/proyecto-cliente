@@ -33,11 +33,12 @@ const Navbar = (props) => {
 
     return (
         <nav className="navbar">
+            {console.log(props.id)}
             <ul className="navbar-nav" >
                 <li className="nav-itemm"><Link to="/"><img className="logo-header" src="/assets/img/logoSharevolume-04.png" alt="Logo Share Volume"/></Link></li>
-                <li className="nav-itemm"><p className="shareVolume">Share Volume</p></li>
+                <li className="nav-itemm" id="nombre"><h1 className="shareVolume">Share Volume</h1></li>
                 <ul className="navbar-nav2" id="myTopnav">
-                    {props.id === ''?
+                    {props.id === '' || props.id === "visitor"?
                         (<li className="nav-item"><Link to="/login" className="login-button"><i className="fas fa-user"></i>Iniciar sesión</Link></li>)
                         :(
                         <li className="nav-item"><Link to="/upload" className="login-button">Añadir productos</Link></li>
@@ -57,13 +58,16 @@ const Navbar = (props) => {
                             </span>
                         </div>
                     </li> */}
+                    {props.id === '' || props.id === 'visitor'? (<div></div>):(
                     <li className="nav-item">
                         <a href="#" className="dropdown-button" onClick={() => setOpen(!open)}>
                         <i className="fas fa-chevron-circle-down"></i>
                         </a>
 
-                        {open && props.children}
-                    </li>
+                        {
+                        open && props.children
+                        }
+                    </li>)}
                 </ul>
                 <li className="nav-item-icon" onClick={myFunction}><i class="fas fa-bars"></i></li>
             </ul>
